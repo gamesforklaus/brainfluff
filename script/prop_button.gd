@@ -11,7 +11,7 @@ func _ready():
 	initialize()
 	
 	# Update value to match config
-	var val = get_config_value(TARGET)
+	var val = Config.get_config_value(TARGET)
 	if val == null:
 		push_warning("Could not obtain config value! - " + str(self))
 		return
@@ -19,4 +19,4 @@ func _ready():
 
 # Updates global config
 func _toggled(button_pressed) -> void:
-	pass # Replace with function body.
+	Config.set_config_value(TARGET, button_pressed)

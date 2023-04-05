@@ -50,6 +50,8 @@ func build_polygon(points : Array[Vector2]) -> void:
 	if current_polygon == null:
 		# Add new polygon to scene
 		current_polygon = poly.instantiate()
+		current_polygon.type = current_polygon.TYPE.PHYSICS if Config.get_config_value(
+			"vertex/physics") else current_polygon.TYPE.STATIC
 		tool_manager.GEOMETRY_NODE.add_child(current_polygon)
 	
 	# Update polygons if they exist

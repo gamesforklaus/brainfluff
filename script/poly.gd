@@ -15,8 +15,13 @@ enum TYPE {
 
 # Reference to collision polygon
 var collision = null
+# Reference to rigid body
+var physics_body = null
 # Type of polygon (physics, static)
 var type : TYPE = TYPE.STATIC
+
+func _ready() -> void:
+	set_color(Color.ORANGE if type == TYPE.PHYSICS else Color.CORNFLOWER_BLUE)
 
 # FUNCTION
 #-------------------------------------------------------------------------------
@@ -32,9 +37,17 @@ func build_collision() -> void:
 	if collision == null:
 		collision = CollisionPolygon2D.new()
 	
+	# Create a new physics body, if one doesnt exist
+	if physics_body == null && type == TYPE.PHYSICS:
+		physics_body = RigidBody2D.new()
+	else:
+		physics_body = StaticBody2D.new()
+	
 	# Copy properties over
 	collision.polygon = polygon
 	add_child(collision)
+	add_child(physics_body)
+	collision.reparent(physics_body)
 
 # Disables temporary polygon
 func disable_temporary_polygon() -> void:
