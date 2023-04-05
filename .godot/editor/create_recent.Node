@@ -1,3 +1,5 @@
+Node
+Node2D
 Control
 OptionButton
 ColorRect
@@ -11,10 +13,8 @@ Window
 ItemList
 Button
 Polygon2D
-Node2D
 CanvasLayer
 Node3D
 SubViewportContainer
-Node
 CSGMesh3D
 Camera3D

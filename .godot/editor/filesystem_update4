@@ -4,9 +4,12 @@ res://scene/tools.tscn
 res://scene/tool_options.tscn
 res://scene/property/drop_property.tscn
 res://scene/property/switch_property.tscn
-res://script/property.gd
-res://script/prop_button.gd
-res://script/config.gd
 res://scene/vertex_mode.tscn
+res://script/vertex_mode.gd
 res://script/builder.gd
-res://script/prop_dropdown.gd
+res://scene/tools/vertex_mode.tscn
+res://scene/tools/vertex_tool.tscn
+res://script/poly.gd
+res://scene/poly.tscn
+res://script/tool.gd
+res://script/config.gd

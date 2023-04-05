@@ -8,5 +8,6 @@ var config = {
 	"vertex" : {
 		"h_origin" : true,
 		"mode"     : 0,
+		"physics"  : false,
 	}
 }

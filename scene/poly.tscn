@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://prlckkilor82"]
+
+[ext_resource type="Script" path="res://script/poly.gd" id="1_ww844"]
+
+[node name="poly" type="Polygon2D" node_paths=PackedStringArray("TEMP_POLY")]
+color = Color(0.329412, 0.239216, 1, 1)
+antialiased = true
+script = ExtResource("1_ww844")
+TEMP_POLY = NodePath("t_p")
+
+[node name="t_p" type="Polygon2D" parent="."]
+z_index = 1
+color = Color(0.788235, 0.788235, 0.788235, 0.537255)
+antialiased = true

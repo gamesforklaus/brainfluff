@@ -66,10 +66,12 @@ NAME = "Highlight Origin"
 TARGET = "vertex/h_origin"
 DESCRIPTION = "Highlights the origin (first) vertex plotted. All geometry constructed forms around the origin point."
 
-[node name="switch_property2" parent="sort" instance=ExtResource("2_v0rlg")]
+[node name="physics" parent="sort" instance=ExtResource("2_v0rlg")]
 layout_mode = 2
-TARGET = ""
+NAME = "Physics"
+TARGET = "vertex/physics"
+DESCRIPTION = "Applies physics to newly plotted geometry."
 
 [editable path="sort/mode"]
 [editable path="sort/h_origin"]
-[editable path="sort/switch_property2"]
+[editable path="sort/physics"]

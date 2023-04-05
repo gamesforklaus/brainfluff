@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://djeks4n1klevb"]
+[gd_scene load_steps=4 format=3 uid="uid://djeks4n1klevb"]
 
 [ext_resource type="FontFile" uid="uid://18rahk40gh2j" path="res://fnt/EspressoDolce.ttf" id="1_q8hnx"]
-[ext_resource type="Script" path="res://script/builder.gd" id="2_dnsu5"]
+[ext_resource type="Script" path="res://script/tool.gd" id="2_m2to2"]
+[ext_resource type="PackedScene" uid="uid://dhhxr3dbvqhoy" path="res://scene/tools/vertex_tool.tscn" id="3_yymin"]
 
 [node name="root" type="Node"]
 
@@ -44,18 +45,16 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 
+[node name="tool_manager" type="Node" parent="." node_paths=PackedStringArray("WORLD_NODE", "GEOMETRY_NODE", "CONNECTOR_NODE")]
+script = ExtResource("2_m2to2")
+WORLD_NODE = NodePath("../world")
+GEOMETRY_NODE = NodePath("../world/geometry")
+CONNECTOR_NODE = NodePath("../world/connector")
+
+[node name="vertex_tool" parent="tool_manager" instance=ExtResource("3_yymin")]
+
 [node name="world" type="Node2D" parent="."]
 
-[node name="geometry" type="Node2D" parent="world"]
+[node name="geometry" type="Node" parent="world"]
 
-[node name="poly" type="Polygon2D" parent="world/geometry"]
-position = Vector2(-18, 40)
-scale = Vector2(1, 0.985437)
-color = Color(0.329412, 0.239216, 1, 1)
-antialiased = true
-script = ExtResource("2_dnsu5")
-
-[node name="t_p" type="Polygon2D" parent="world/geometry/poly"]
-z_index = 1
-color = Color(0.788235, 0.788235, 0.788235, 0.537255)
-antialiased = true
+[node name="connector" type="Node" parent="world"]

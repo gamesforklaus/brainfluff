@@ -14,6 +14,7 @@ VALUE_NODE = NodePath("toggle")
 [node name="property_name" type="RichTextLabel" parent="."]
 layout_mode = 2
 size_flags_horizontal = 2
+mouse_default_cursor_shape = 16
 theme = ExtResource("1_cvaww")
 bbcode_enabled = true
 text = "Property Name"
@@ -24,6 +25,7 @@ autowrap_mode = 0
 [node name="toggle" type="CheckButton" parent="."]
 layout_mode = 2
 size_flags_vertical = 0
+mouse_default_cursor_shape = 2
 button_mask = 3
 alignment = 2
 
