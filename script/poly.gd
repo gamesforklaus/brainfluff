@@ -36,18 +36,29 @@ func build_collision() -> void:
 	# Create a new collision node if one doesnt exist
 	if collision == null:
 		collision = CollisionPolygon2D.new()
-	
-	# Create a new physics body, if one doesnt exist
-#	if physics_body == null && type == TYPE.PHYSICS:
-#		physics_body = RigidBody2D.new()
-#	else:
-#		physics_body = StaticBody2D.new()
-	
+
 	# Copy properties over
-	collision.polygon = polygon
+	collision.polygon = offset_polygon(grab_median())
 	physics_body.add_child(collision)
-	#add_child(physics_body)
-	#collision.reparent(physics_body)
+
+# Offsets vertices in a polygon by a certain amount
+func offset_polygon(center : Vector2) -> PackedVector2Array:
+	var new_points = []
+	for point in polygon:
+		new_points.append(point - center)
+	return new_points
+
+# Recenters physic body to the median
+# of the polygon
+func grab_median() -> Vector2:
+	# Prepare for recenter
+	var median = polygon.size()
+	var pos = Vector2.ZERO
+	
+	# Recenter
+	for point in polygon:
+		pos += point / median
+	return pos
 
 # Disables temporary polygon
 func disable_temporary_polygon() -> void:

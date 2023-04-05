@@ -35,7 +35,7 @@ window/stretch/mode="canvas_items"
 
 [physics]
 
-3d/run_on_separate_thread=true
+2d/run_on_separate_thread=true
 
 [rendering]
 

@@ -14,6 +14,7 @@ var current_body = null
 var cpolygon_data : PackedVector2Array = []
 # Polygon to instantiate
 @onready var poly = preload("res://scene/poly.tscn")
+@onready var mat = preload("res://scene/phys_material.tres")
 
 func _ready():
 	pass
@@ -34,6 +35,7 @@ func _unhandled_input(event):
 			# Add a new point from position
 			add_point()
 			build_polygon(cpolygon_data)
+			#recenter()
 	# If keyboard button is pressed
 	if event is InputEventKey:
 		if event.pressed:
@@ -61,6 +63,8 @@ func build_polygon(points : Array[Vector2]) -> void:
 		# Add physics type
 		if type:
 			current_body = RigidBody2D.new()
+			current_body.physics_material_override = mat
+			current_body.center_of_mass_mode = 1
 		else:
 			current_body = StaticBody2D.new()
 		
@@ -71,6 +75,10 @@ func build_polygon(points : Array[Vector2]) -> void:
 	# Update polygons if they exist
 	current_polygon.set_polygon(points)
 	current_polygon.TEMP_POLY.set_polygon(points)
+	
+	# Update center of mass
+	#if current_body is RigidBody2D:
+	#	current_body.center_of_mass = grab_median()
 
 # Updates the polygon building overlay
 func update_temp_polygon(points : Array[Vector2]) -> void:
@@ -100,6 +108,12 @@ func clear_polygon() -> void:
 
 # "Finishes" current polygon
 func commit_polygon() -> void:
+	# Recenter physics body and polygon
+	var old_pos = current_polygon.global_position
+	var center = current_polygon.grab_median()
+	current_body.global_position = center
+	current_polygon.position -= center
+	
 	# Prepare polygon for commit
 	current_body.process_mode = Node.PROCESS_MODE_INHERIT
 	current_polygon.prepare_commit()
@@ -115,8 +129,12 @@ func add_point() -> void:
 	cpolygon_data.append(get_local_mouse_position())
 	queue_redraw()
 
+# Calculates mass based on polygon size
+func calculate_mass() -> float:
+	return 0.0
+
 func draw_points() -> void:
-	var polygons = tool_manager.GEOMETRY_NODE.get_children(true)
+	var polygons = tool_manager.GEOMETRY_NODE.get_children()
 	var index = 0
 	
 	for polygon in polygons:
