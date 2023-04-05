@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbbaa06aawvwb"]
+
+[ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_pkk5a"]
+
+[node name="drop_property" type="HBoxContainer"]
+custom_minimum_size = Vector2(246, 24)
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="property_name" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+mouse_default_cursor_shape = 16
+theme = ExtResource("1_pkk5a")
+bbcode_enabled = true
+text = "Property Name"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="toggle" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_pkk5a")
+theme_override_font_sizes/font_size = 16
+button_mask = 3
+item_count = 3
+popup/item_0/text = "Element 1"
+popup/item_0/id = 0
+popup/item_1/text = "Element 2"
+popup/item_1/id = 1
+popup/item_2/text = "Element 3"
+popup/item_2/id = 2

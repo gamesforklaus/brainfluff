@@ -1,0 +1,12 @@
+res://scene/root.tscn
+res://gfx/ui/theme.tres
+res://scene/tools.tscn
+res://scene/tool_options.tscn
+res://scene/property/drop_property.tscn
+res://scene/property/switch_property.tscn
+res://script/property.gd
+res://script/prop_button.gd
+res://script/config.gd
+res://scene/vertex_mode.tscn
+res://script/builder.gd
+res://script/prop_dropdown.gd

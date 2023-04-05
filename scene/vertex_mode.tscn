@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1udl16al55us"]
+
+[ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_ij5wm"]
+[ext_resource type="PackedScene" uid="uid://depvnynlv1ise" path="res://scene/property/switch_property.tscn" id="2_v0rlg"]
+[ext_resource type="PackedScene" uid="uid://bbbaa06aawvwb" path="res://scene/property/drop_property.tscn" id="3_nl0jy"]
+[ext_resource type="Script" path="res://script/prop_dropdown.gd" id="3_p0myb"]
+
+[node name="vertex_mode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="header" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 46.0
+color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[node name="sort" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(246, 478)
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 256.0
+offset_bottom = 481.0
+theme_override_constants/separation = 4
+
+[node name="tool_name" type="RichTextLabel" parent="sort"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme = ExtResource("1_ij5wm")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Vertex Mode"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="separator" type="HSeparator" parent="sort"]
+custom_minimum_size = Vector2(164, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="mode" parent="sort" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE") instance=ExtResource("3_nl0jy")]
+layout_mode = 2
+script = ExtResource("3_p0myb")
+NAME_NODE = NodePath("property_name")
+VALUE_NODE = NodePath("toggle")
+NAME = "Mode"
+TARGET = "vertex/mode"
+DESCRIPTION = "Dictates the type of vertex construction when plotting points.
+
+build - Create geometry, unifies with other geometry
+cut - Subtracts from geometry
+intersect - Subtracts from existing geometry, and creates new geometry in open space. "
+
+[node name="toggle" parent="sort/mode" index="1"]
+popup/item_0/text = "build"
+popup/item_1/text = "cut"
+popup/item_2/text = "intersect"
+
+[node name="h_origin" parent="sort" instance=ExtResource("2_v0rlg")]
+layout_mode = 2
+NAME = "Highlight Origin"
+TARGET = "vertex/h_origin"
+DESCRIPTION = "Highlights the origin (first) vertex plotted. All geometry constructed forms around the origin point."
+
+[node name="switch_property2" parent="sort" instance=ExtResource("2_v0rlg")]
+layout_mode = 2
+TARGET = ""
+
+[editable path="sort/mode"]
+[editable path="sort/h_origin"]
+[editable path="sort/switch_property2"]

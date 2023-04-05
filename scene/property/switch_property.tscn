@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://depvnynlv1ise"]
+
+[ext_resource type="Script" path="res://script/prop_button.gd" id="1_18xpn"]
+[ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_cvaww"]
+
+[node name="switch_property" type="HBoxContainer" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE")]
+custom_minimum_size = Vector2(250, 24)
+size_flags_horizontal = 0
+size_flags_vertical = 4
+script = ExtResource("1_18xpn")
+NAME_NODE = NodePath("property_name")
+VALUE_NODE = NodePath("toggle")
+
+[node name="property_name" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("1_cvaww")
+bbcode_enabled = true
+text = "Property Name"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="toggle" type="CheckButton" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+button_mask = 3
+alignment = 2
+
+[connection signal="toggled" from="toggle" to="." method="_toggled"]

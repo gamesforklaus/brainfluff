@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://oa8g4n8ubs05"]
+
+[ext_resource type="FontFile" uid="uid://18rahk40gh2j" path="res://fnt/EspressoDolce.ttf" id="1_emn2h"]
+
+[sub_resource type="FontVariation" id="FontVariation_n4chq"]
+base_font = ExtResource("1_emn2h")
+spacing_top = 4
+
+[resource]
+Button/fonts/font = ExtResource("1_emn2h")
+ItemList/constants/icon_margin = 6
+ItemList/constants/v_separation = 2
+ItemList/font_sizes/font_size = 20
+ItemList/fonts/font = ExtResource("1_emn2h")
+Label/font_sizes/font_size = 20
+Label/fonts/font = ExtResource("1_emn2h")
+RichTextLabel/fonts/normal_font = SubResource("FontVariation_n4chq")
