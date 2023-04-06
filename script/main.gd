@@ -8,7 +8,7 @@ var windows = [
 ]
 
 # Window offsets
-const TOOL = Vector2i(-262, 0)
+const TOOL      = Vector2i(-262, 0)
 const T_OPTIONS = Vector2i(-262, 242)
 
 # Initialization

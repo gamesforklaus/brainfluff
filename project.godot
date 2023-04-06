@@ -24,6 +24,7 @@ config/icon="res://icon.svg"
 
 Main="*res://script/main.gd"
 Config="*res://script/config.gd"
+SoundBus="*res://script/sound_bus.gd"
 
 [display]
 

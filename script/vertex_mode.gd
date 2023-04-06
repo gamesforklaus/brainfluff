@@ -12,7 +12,7 @@ var current_polygon : Polygon2D = null
 var current_body = null
 # Current array of points
 var cpolygon_data : PackedVector2Array = []
-# Polygon to instantiate
+# Nodes to instantiate
 @onready var poly = preload("res://scene/poly.tscn")
 @onready var mat = preload("res://scene/phys_material.tres")
 
@@ -92,7 +92,6 @@ func update_temp_polygon(points : Array[Vector2]) -> void:
 
 # Deletes currently drawn polygon
 func clear_polygon() -> void:
-	var deletesfx = preload("res://snd/delete.wav")
 	# See if a polygon exists
 	if current_polygon == null:
 		push_warning("Cannot remove polygon - Does not exist.")
@@ -100,15 +99,15 @@ func clear_polygon() -> void:
 	# Clear points and delete polygon
 	cpolygon_data.clear()
 	current_body.queue_free()
-	$AudioStreamPlayer.stream = deletesfx
-	$AudioStreamPlayer.pitch_scale = randf_range(0.8,1.4)
-	$AudioStreamPlayer.play()
+	
+	# Play delete sound
+	SoundBus.create_global_sound(SoundBus.Delete, randf_range(0.8,1.2))
+	
 	# Redraw
 	queue_redraw()
 
 # "Finishes" current polygon
 func commit_polygon() -> void:
-	var commitsfx = preload("res://snd/commit.wav")
 	# Verify polygon exists
 	if current_polygon == null:
 		push_warning("Cannot commit polygon - Does not exist.")
@@ -119,9 +118,10 @@ func commit_polygon() -> void:
 	var center = current_polygon.grab_median()
 	current_body.global_position = center
 	current_polygon.position -= center
-	$AudioStreamPlayer.stream = commitsfx
-	$AudioStreamPlayer.pitch_scale = randf_range(0.8,1.4)
-	$AudioStreamPlayer.play()
+	
+	# Spawn commit sound
+	SoundBus.create_global_sound(SoundBus.Commit, randf_range(0.8,1.2))
+	
 	# Prepare polygon for commit
 	current_body.process_mode = Node.PROCESS_MODE_INHERIT
 	current_polygon.prepare_commit()
@@ -134,18 +134,19 @@ func commit_polygon() -> void:
 # Grabs mouse position and creates
 # point data
 func add_point() -> void:
-	var plotsfx = preload("res://snd/plot.wav")
 	# Create a position in array
 	cpolygon_data.append(get_local_mouse_position())
-	$AudioStreamPlayer.stream = plotsfx
-	$AudioStreamPlayer.pitch_scale = randf_range(0.8,1.4)
-	$AudioStreamPlayer.play()
+	
+	# Spawn plot sound
+	SoundBus.create_global_sound(SoundBus.Plot, randf_range(0.8,1.2))
 	queue_redraw()
 
 # Calculates mass based on polygon size
 func calculate_mass() -> float:
 	return 0.0
 
+'''bug'''
+# Supposed to draw points, currently broken
 func draw_points() -> void:
 	var polygons = tool_manager.GEOMETRY_NODE.get_children()
 	var index = 0

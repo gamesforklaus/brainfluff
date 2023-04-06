@@ -9,3 +9,5 @@ res://scene/phys_material.tres
 res://script/poly.gd
 res://script/pool.gd
 res://default_bus_layout.tres
+res://script/sound_bus.gd
+res://script/main.gd
