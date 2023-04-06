@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1udl16al55us"]
+[gd_scene load_steps=4 format=3 uid="uid://d1udl16al55us"]
 
 [ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_ij5wm"]
 [ext_resource type="PackedScene" uid="uid://depvnynlv1ise" path="res://scene/property/switch_property.tscn" id="2_v0rlg"]
 [ext_resource type="PackedScene" uid="uid://bbbaa06aawvwb" path="res://scene/property/drop_property.tscn" id="3_nl0jy"]
-[ext_resource type="Script" path="res://script/prop_dropdown.gd" id="3_p0myb"]
 
 [node name="vertex_mode" type="Control"]
 layout_mode = 3
@@ -44,7 +43,6 @@ size_flags_horizontal = 4
 
 [node name="mode" parent="sort" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE") instance=ExtResource("3_nl0jy")]
 layout_mode = 2
-script = ExtResource("3_p0myb")
 NAME_NODE = NodePath("property_name")
 VALUE_NODE = NodePath("toggle")
 NAME = "Mode"

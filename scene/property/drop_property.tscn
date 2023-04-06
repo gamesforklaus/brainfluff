@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbbaa06aawvwb"]
+[gd_scene load_steps=3 format=3 uid="uid://bbbaa06aawvwb"]
 
+[ext_resource type="Script" path="res://script/prop_dropdown.gd" id="1_76ksb"]
 [ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_pkk5a"]
 
 [node name="drop_property" type="HBoxContainer"]
 custom_minimum_size = Vector2(246, 24)
 size_flags_horizontal = 0
 size_flags_vertical = 4
+script = ExtResource("1_76ksb")
 
 [node name="property_name" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(0, 24)
@@ -35,3 +37,5 @@ popup/item_1/text = "Element 2"
 popup/item_1/id = 1
 popup/item_2/text = "Element 3"
 popup/item_2/id = 2
+
+[connection signal="item_selected" from="toggle" to="." method="_item_selected"]

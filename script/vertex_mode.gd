@@ -19,7 +19,7 @@ var cpolygon_data : PackedVector2Array = []
 func _ready():
 	pass
 
-func _process(delta):
+func _process(_delta):
 	# Update the polygon building indicator
 	if cpolygon_data.size() >= 2:
 		update_temp_polygon(cpolygon_data)
@@ -53,11 +53,21 @@ func build_polygon(points : Array[Vector2]) -> void:
 	if current_polygon == null:
 		# Declare variables
 		var type = Config.get_config_value("vertex/physics")
+		var mode = Config.get_config_value("vertex/mode")
 		
 		# Instance and configure polygon
 		current_polygon = poly.instantiate()
-		current_polygon.type = current_polygon.TYPE.PHYSICS if Config.get_config_value(
-			"vertex/physics") else current_polygon.TYPE.STATIC
+		match mode:
+			0:          # Build
+				match type:
+					true:
+						current_polygon.type = current_polygon.TYPE.PHYSICS
+					false:
+						current_polygon.type = current_polygon.TYPE.STATIC
+			1:          # Cut
+				current_polygon.type = current_polygon.TYPE.REMOVE
+			2:          # Intersect
+				pass
 		
 		# Add physics type
 		if type:
@@ -80,7 +90,7 @@ func build_polygon(points : Array[Vector2]) -> void:
 func update_temp_polygon(points : Array[Vector2]) -> void:
 	# Create variables
 	var tempPoints : PackedVector2Array = points
-	var newPoints  : PackedVector2Array
+	var newPoints  : PackedVector2Array = []
 	var origin = tempPoints[0]
 	var mousePos = get_local_mouse_position()
 	
@@ -115,10 +125,7 @@ func commit_polygon() -> void:
 		return
 		
 	# Recenter physics body and polygon
-	var old_pos = current_polygon.global_position
-	var center = current_polygon.grab_median()
-	current_body.global_position = center
-	current_polygon.position -= center
+	current_polygon.recenter()
 	
 	# Spawn commit sound
 	SoundBus.create_global_sound(SoundBus.Commit, randf_range(0.8,1.2))

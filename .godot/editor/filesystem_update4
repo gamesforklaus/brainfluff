@@ -11,3 +11,6 @@ res://script/pool.gd
 res://default_bus_layout.tres
 res://script/sound_bus.gd
 res://script/main.gd
+res://script/prop_dropdown.gd
+res://scene/property/drop_property.tscn
+res://scene/vertex_mode.tscn

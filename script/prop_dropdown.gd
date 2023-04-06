@@ -16,3 +16,6 @@ func _ready():
 		push_warning("Could not obtain config value! - " + str(self))
 		return
 	VALUE_NODE.selected = val
+
+func _item_selected(index):
+	Config.set_config_value(TARGET, index)
