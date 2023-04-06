@@ -37,8 +37,13 @@ func build_collision() -> void:
 	if collision == null:
 		collision = CollisionPolygon2D.new()
 
-	# Copy properties over
+	# Calculate collision
 	collision.polygon = offset_polygon(grab_median())
+	# If collision triangulation fails, we have a bad polygon
+	if Geometry2D.triangulate_polygon(collision.polygon).is_empty():
+		physics_body.queue_free()
+		return
+	# Add collision to body
 	physics_body.add_child(collision)
 
 # Offsets vertices in a polygon by a certain amount

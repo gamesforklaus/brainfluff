@@ -31,11 +31,10 @@ func _draw():
 func _unhandled_input(event):
 	# If a mouse button is pressed
 	if event is InputEventMouseButton:
-		if event.pressed:
+		if event.pressed && event.button_index == MOUSE_BUTTON_LEFT:
 			# Add a new point from position
 			add_point()
 			build_polygon(cpolygon_data)
-			#recenter()
 	# If keyboard button is pressed
 	if event is InputEventKey:
 		if event.pressed:
@@ -76,9 +75,6 @@ func build_polygon(points : Array[Vector2]) -> void:
 	current_polygon.set_polygon(points)
 	current_polygon.TEMP_POLY.set_polygon(points)
 	
-	# Update center of mass
-	#if current_body is RigidBody2D:
-	#	current_body.center_of_mass = grab_median()
 
 # Updates the polygon building overlay
 func update_temp_polygon(points : Array[Vector2]) -> void:
@@ -108,6 +104,11 @@ func clear_polygon() -> void:
 
 # "Finishes" current polygon
 func commit_polygon() -> void:
+	# Verify polygon exists
+	if current_polygon == null:
+		push_warning("Cannot commit polygon - Does not exist.")
+		return
+		
 	# Recenter physics body and polygon
 	var old_pos = current_polygon.global_position
 	var center = current_polygon.grab_median()
@@ -117,6 +118,7 @@ func commit_polygon() -> void:
 	# Prepare polygon for commit
 	current_body.process_mode = Node.PROCESS_MODE_INHERIT
 	current_polygon.prepare_commit()
+	
 	# Remove polygon from current
 	current_polygon = null
 	current_body = null

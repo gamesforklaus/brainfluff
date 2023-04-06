@@ -58,3 +58,5 @@ CONNECTOR_NODE = NodePath("../world/connector")
 [node name="geometry" type="Node" parent="world"]
 
 [node name="connector" type="Node" parent="world"]
+
+[node name="editor_cam" type="Camera2D" parent="world"]

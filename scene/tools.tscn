@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://mp7ar1txyyiv"]
 
-[ext_resource type="Texture2D" uid="uid://b6bfsebbn5j01" path="res://gfx/ui/ico_vtx.png" id="1_g72j5"]
 [ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_h144t"]
-[ext_resource type="Texture2D" uid="uid://bxvovg8v4a3mi" path="res://gfx/ui/ico_scribe.png" id="2_r667i"]
-[ext_resource type="Texture2D" uid="uid://dwix8ifpuerc8" path="res://gfx/ui/ico_poly.png" id="3_08ua2"]
-[ext_resource type="Texture2D" uid="uid://dyq2pqrc6v6jb" path="res://gfx/ui/ico_remove.png" id="5_2cl5k"]
-[ext_resource type="Texture2D" uid="uid://duxbnc7eu7sp" path="res://gfx/ui/ico_stamp.png" id="6_mg7e7"]
+[ext_resource type="Texture2D" uid="uid://dbtyb57sm81we" path="res://gfx/ui/svg/ico_vert.svg" id="2_mic4p"]
+[ext_resource type="Texture2D" uid="uid://dbdjapghjde6r" path="res://gfx/ui/svg/ico_scrib.svg" id="3_5txco"]
+[ext_resource type="Texture2D" uid="uid://oyrrhuxnvobo" path="res://gfx/ui/svg/ico_poly.svg" id="4_0rlkh"]
+[ext_resource type="Texture2D" uid="uid://bxwvhqge5akk6" path="res://gfx/ui/svg/ico_del.svg" id="5_b3rts"]
+[ext_resource type="Texture2D" uid="uid://bvxwkjldamnwy" path="res://gfx/ui/svg/ico_stamp.svg" id="6_ihad7"]
 
 [node name="tools" type="Window"]
 disable_3d = true
@@ -21,15 +21,17 @@ offset_bottom = 208.0
 theme = ExtResource("1_h144t")
 allow_rmb_select = true
 item_count = 5
+max_columns = 2
 same_column_width = true
-fixed_icon_size = Vector2i(36, 36)
+icon_mode = 0
+fixed_icon_size = Vector2i(64, 64)
 item_0/text = "Vertex Mode"
-item_0/icon = ExtResource("1_g72j5")
+item_0/icon = ExtResource("2_mic4p")
 item_1/text = "Scribble Mode"
-item_1/icon = ExtResource("2_r667i")
+item_1/icon = ExtResource("3_5txco")
 item_2/text = "Polygon Mode"
-item_2/icon = ExtResource("3_08ua2")
+item_2/icon = ExtResource("4_0rlkh")
 item_3/text = "Remove Mode"
-item_3/icon = ExtResource("5_2cl5k")
+item_3/icon = ExtResource("5_b3rts")
 item_4/text = "Stamper Mode"
-item_4/icon = ExtResource("6_mg7e7")
+item_4/icon = ExtResource("6_ihad7")
