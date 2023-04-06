@@ -7,6 +7,7 @@ An open source physics sandbox created in Godot
 - [ ] Polygon CSG-type manipulation
 - [ ] Modifiable verticies (translation, deletion)
 - [ ] Modifiable polygons (translation, rotation, scaling)
+- [ ] Grid system
 - [ ] Editor camera
 
 # to-do (future)
