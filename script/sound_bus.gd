@@ -43,6 +43,10 @@ func create_global_sound(
 	# Add to scene tree
 	get_tree().current_scene.add_child(sound)
 	sound.play()
+	
+	# Cleanup
+	await sound.finished
+	sound.queue_free()
 
 # Creates a positional audio stream based on ID
 func create_2d_sound(
@@ -62,3 +66,7 @@ func create_2d_sound(
 	# Add to scene tree
 	get_tree().current_scene.add_child(sound)
 	sound.play()
+	
+	# Cleanup
+	await sound.finished
+	sound.queue_free()

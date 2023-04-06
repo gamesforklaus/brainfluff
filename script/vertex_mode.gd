@@ -96,6 +96,7 @@ func clear_polygon() -> void:
 	if current_polygon == null:
 		push_warning("Cannot remove polygon - Does not exist.")
 		return
+	
 	# Clear points and delete polygon
 	cpolygon_data.clear()
 	current_body.queue_free()
