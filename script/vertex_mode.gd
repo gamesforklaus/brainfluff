@@ -92,6 +92,7 @@ func update_temp_polygon(points : Array[Vector2]) -> void:
 
 # Deletes currently drawn polygon
 func clear_polygon() -> void:
+	var deletesfx = preload("res://snd/delete.wav")
 	# See if a polygon exists
 	if current_polygon == null:
 		push_warning("Cannot remove polygon - Does not exist.")
@@ -99,11 +100,15 @@ func clear_polygon() -> void:
 	# Clear points and delete polygon
 	cpolygon_data.clear()
 	current_body.queue_free()
+	$AudioStreamPlayer.stream = deletesfx
+	$AudioStreamPlayer.pitch_scale = randf_range(0.8,1.4)
+	$AudioStreamPlayer.play()
 	# Redraw
 	queue_redraw()
 
 # "Finishes" current polygon
 func commit_polygon() -> void:
+	var commitsfx = preload("res://snd/commit.wav")
 	# Verify polygon exists
 	if current_polygon == null:
 		push_warning("Cannot commit polygon - Does not exist.")
@@ -114,7 +119,9 @@ func commit_polygon() -> void:
 	var center = current_polygon.grab_median()
 	current_body.global_position = center
 	current_polygon.position -= center
-	
+	$AudioStreamPlayer.stream = commitsfx
+	$AudioStreamPlayer.pitch_scale = randf_range(0.8,1.4)
+	$AudioStreamPlayer.play()
 	# Prepare polygon for commit
 	current_body.process_mode = Node.PROCESS_MODE_INHERIT
 	current_polygon.prepare_commit()
@@ -127,8 +134,12 @@ func commit_polygon() -> void:
 # Grabs mouse position and creates
 # point data
 func add_point() -> void:
+	var plotsfx = preload("res://snd/plot.wav")
 	# Create a position in array
 	cpolygon_data.append(get_local_mouse_position())
+	$AudioStreamPlayer.stream = plotsfx
+	$AudioStreamPlayer.pitch_scale = randf_range(0.8,1.4)
+	$AudioStreamPlayer.play()
 	queue_redraw()
 
 # Calculates mass based on polygon size
