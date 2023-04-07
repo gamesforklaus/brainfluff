@@ -6,10 +6,11 @@ extends Node
 
 var config = {
 	"vertex" : {
-		"h_origin" : true,
-		"mode"     : 0,
-		"physics"  : true,
-		"color"  : 0x0000ff,
+		"h_origin"    : true,
+		"mode"        : 0,
+		"physics"     : true,
+		"use_color"   : false,
+		"color"       : Color.CORNFLOWER_BLUE,
 	}
 }
 

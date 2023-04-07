@@ -17,5 +17,5 @@ func _ready():
 		return
 	VALUE_NODE.color = val
 
-func _on_color_picker_color_changed(color):
+func _color_changed(color):
 	Config.set_config_value(TARGET, color)

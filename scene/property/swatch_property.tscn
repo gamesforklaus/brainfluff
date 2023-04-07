@@ -1,3 +1,32 @@
-[gd_scene format=3 uid="uid://nidui24hp1p2"]
+[gd_scene load_steps=3 format=3 uid="uid://ds4hmfyrfdm2l"]
 
-[node name="swatch" type="HBoxContainer"]
+[ext_resource type="Script" path="res://script/prop_swatch.gd" id="1_f38t5"]
+[ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_vkek5"]
+
+[node name="swatch_property" type="HBoxContainer" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE")]
+custom_minimum_size = Vector2(244, 24)
+alignment = 1
+script = ExtResource("1_f38t5")
+NAME_NODE = NodePath("property_name")
+VALUE_NODE = NodePath("picker")
+
+[node name="property_name" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 2
+mouse_default_cursor_shape = 16
+theme = ExtResource("1_vkek5")
+bbcode_enabled = true
+text = "Property Name"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="picker" type="ColorPickerButton" parent="."]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_default_cursor_shape = 2
+button_mask = 3
+alignment = 2
+
+[connection signal="color_changed" from="picker" to="." method="_color_changed"]

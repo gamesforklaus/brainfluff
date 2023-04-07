@@ -1,3 +1,6 @@
+MarginContainer
+HBoxContainer
+ColorPickerButton
 RigidBody2D
 CharacterBody2D
 PinJoint2D
@@ -14,7 +17,6 @@ ParallaxBackground
 SubViewport
 ColorPicker
 RichTextLabel
-HBoxContainer
 AudioStreamPlayer
 Camera2D
 Node2D
@@ -29,4 +31,3 @@ Window
 ItemList
 Button
 CanvasLayer
-Node3D

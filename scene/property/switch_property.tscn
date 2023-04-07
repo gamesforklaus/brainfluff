@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_cvaww"]
 
 [node name="switch_property" type="HBoxContainer" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE")]
-custom_minimum_size = Vector2(250, 24)
+custom_minimum_size = Vector2(244, 24)
 size_flags_horizontal = 0
 size_flags_vertical = 4
 script = ExtResource("1_18xpn")

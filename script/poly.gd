@@ -28,10 +28,10 @@ var collision = null
 var type : TYPE = TYPE.STATIC
 
 func _ready() -> void:
-	# Set color
-	if type == TYPE.STATIC or type == TYPE.PHYSICS:
-		var colorPick = Config.get_config_value("vertex/color")
-		set_color(colorPick)
+	var custom_color = Config.get_config_value("vertex/use_color")
+	if custom_color:
+		# Set custom color
+		set_color(Config.get_config_value("vertex/color"))
 	else:
 		# Set color
 		set_color(COLOR[type])

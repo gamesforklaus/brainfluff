@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1udl16al55us"]
+[gd_scene load_steps=5 format=3 uid="uid://d1udl16al55us"]
 
 [ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_ij5wm"]
 [ext_resource type="PackedScene" uid="uid://depvnynlv1ise" path="res://scene/property/switch_property.tscn" id="2_v0rlg"]
 [ext_resource type="PackedScene" uid="uid://bbbaa06aawvwb" path="res://scene/property/drop_property.tscn" id="3_nl0jy"]
-[ext_resource type="PackedScene" uid="uid://nidui24hp1p2" path="res://scene/property/swatch_property.tscn" id="4_603iw"]
-[ext_resource type="Script" path="res://script/prop_swatch.gd" id="4_dn2wr"]
+[ext_resource type="PackedScene" uid="uid://ds4hmfyrfdm2l" path="res://scene/property/swatch_property.tscn" id="4_603iw"]
 
 [node name="vertex_mode" type="Control"]
 layout_mode = 3
@@ -18,16 +17,20 @@ offset_right = 256.0
 offset_bottom = 46.0
 color = Color(0.176471, 0.176471, 0.176471, 1)
 
-[node name="sort" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(246, 478)
-layout_mode = 0
-offset_left = 6.0
-offset_top = 3.0
-offset_right = 256.0
-offset_bottom = 481.0
+[node name="center" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 260.0
+offset_bottom = 482.0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="sort" type="VBoxContainer" parent="center"]
+custom_minimum_size = Vector2(242, 478)
+layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="tool_name" type="RichTextLabel" parent="sort"]
+[node name="tool_name" type="RichTextLabel" parent="center/sort"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 theme = ExtResource("1_ij5wm")
@@ -38,12 +41,29 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="separator" type="HSeparator" parent="sort"]
-custom_minimum_size = Vector2(164, 0)
+[node name="s1" type="HSeparator" parent="center/sort"]
+custom_minimum_size = Vector2(236, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="mode" parent="sort" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE") instance=ExtResource("3_nl0jy")]
+[node name="category_tech" type="RichTextLabel" parent="center/sort"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme = ExtResource("1_ij5wm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Technical"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="s2" type="HSeparator" parent="center/sort"]
+custom_minimum_size = Vector2(236, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="mode" parent="center/sort" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE") instance=ExtResource("3_nl0jy")]
+custom_minimum_size = Vector2(244, 24)
 layout_mode = 2
 NAME_NODE = NodePath("property_name")
 VALUE_NODE = NodePath("toggle")
@@ -55,52 +75,52 @@ build - Create geometry, unifies with other geometry
 cut - Subtracts from geometry
 intersect - Subtracts from existing geometry, and creates new geometry in open space. "
 
-[node name="toggle" parent="sort/mode" index="1"]
+[node name="toggle" parent="center/sort/mode" index="1"]
 popup/item_0/text = "build"
 popup/item_1/text = "cut"
 popup/item_2/text = "intersect"
 
-[node name="h_origin" parent="sort" instance=ExtResource("2_v0rlg")]
-layout_mode = 2
-NAME = "Highlight Origin"
-TARGET = "vertex/h_origin"
-DESCRIPTION = "Highlights the origin (first) vertex plotted. All geometry constructed forms around the origin point."
-
-[node name="physics" parent="sort" instance=ExtResource("2_v0rlg")]
+[node name="physics" parent="center/sort" instance=ExtResource("2_v0rlg")]
 layout_mode = 2
 NAME = "Physics"
 TARGET = "vertex/physics"
 DESCRIPTION = "Applies physics to newly plotted geometry."
 
-[node name="swatch" parent="sort" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE") instance=ExtResource("4_603iw")]
+[node name="category_tech2" type="RichTextLabel" parent="center/sort"]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
-script = ExtResource("4_dn2wr")
-NAME_NODE = NodePath("property_name")
-VALUE_NODE = NodePath("ColorPicker")
-NAME = "HEX Color Picker"
-TARGET = "vertex/color"
-DESCRIPTION = "Applies Coloring to your shapes!"
-
-[node name="property_name" type="RichTextLabel" parent="sort/swatch"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
+theme = ExtResource("1_ij5wm")
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "Property Name"
+text = "Visual"
 fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
-[node name="ColorPicker" type="ColorPicker" parent="sort/swatch"]
+[node name="s3" type="HSeparator" parent="center/sort"]
+custom_minimum_size = Vector2(236, 0)
 layout_mode = 2
-color = Color(0, 0, 1, 1)
-edit_alpha = false
-picker_shape = 4
-can_add_swatches = false
-sampler_visible = false
-color_modes_visible = false
-sliders_visible = false
-presets_visible = false
+size_flags_horizontal = 4
 
-[connection signal="color_changed" from="sort/swatch/ColorPicker" to="sort/swatch" method="_on_color_picker_color_changed"]
+[node name="h_origin" parent="center/sort" instance=ExtResource("2_v0rlg")]
+layout_mode = 2
+NAME = "Highlight Origin"
+TARGET = "vertex/h_origin"
+DESCRIPTION = "Highlights the origin (first) vertex plotted. All geometry constructed forms around the origin point."
 
-[editable path="sort/mode"]
-[editable path="sort/h_origin"]
-[editable path="sort/physics"]
+[node name="use_color" parent="center/sort" instance=ExtResource("2_v0rlg")]
+layout_mode = 2
+NAME = "Use Custom Color"
+TARGET = "vertex/use_color"
+DESCRIPTION = "Toggles the use of a custom color instead of the default colors."
+
+[node name="color" parent="center/sort" instance=ExtResource("4_603iw")]
+layout_mode = 2
+NAME = "Custom Color"
+TARGET = "vertex/color"
+DESCRIPTION = "Allows you to assign a custom color to the polygon."
+
+[editable path="center/sort/mode"]
+[editable path="center/sort/physics"]
+[editable path="center/sort/h_origin"]
+[editable path="center/sort/use_color"]

@@ -86,4 +86,3 @@ jumpAction={
 [rendering]
 
 renderer/rendering_method="mobile"
-environment/defaults/default_clear_color=Color(0.552941, 0.619608, 0.933333, 1)
