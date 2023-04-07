@@ -8,13 +8,15 @@ class_name Polygon
 enum TYPE {
 	STATIC,
 	PHYSICS,
-	REMOVE
+	REMOVE,
+	ADD
 }
 
 var COLOR = [
 	Color.CORNFLOWER_BLUE,      # 0 - Static
 	Color.ORANGE,               # 1 - Physics
 	Color.INDIAN_RED,           # 2 - Remove
+	Color.LIME_GREEN            # 3 - Add
 ]
 
 @export_category("Polygon")
@@ -64,6 +66,10 @@ func build_collision() -> void:
 	# Cut depending on mode
 	if type == TYPE.REMOVE:
 		cut_polygons()
+		
+	# Add depending on mode
+	if type == TYPE.ADD:
+		add_polygons()
 
 # Offsets vertices in a polygon by a certain amount
 func offset_polygon(center : Vector2) -> PackedVector2Array:
@@ -92,6 +98,25 @@ func cut_polygon(target : PackedVector2Array) -> PackedVector2Array:
 	match new_poly.size():
 		0:
 			push_warning("No polygon to cut.")
+			return []
+		1:
+			return new_poly[0]
+		2:
+			push_warning("Polygon cannot have internal opening!")
+			return new_poly[0]
+		_:
+			print(new_poly.size())
+			print(new_poly)
+			push_warning("Something wrong happened.")
+			return []
+
+func add_polygon(target : PackedVector2Array) -> PackedVector2Array:
+	# Calculate new polygon data
+	var new_poly = Geometry2D.merge_polygons(target, polygon)
+	
+	match new_poly.size():
+		0:
+			push_warning("No polygon to add to.")
 			return []
 		1:
 			return new_poly[0]
@@ -169,3 +194,29 @@ func recenter() -> void:
 # Disables temporary polygon
 func disable_temporary_polygon() -> void:
 	TEMP_POLY.polygon = []
+
+func add_polygons() -> void:
+	# Get overlapping polys
+	var poly_list = await get_overlapping_polygons()
+	
+	# Error catching
+	if poly_list.size() == 0:
+		physics_body.queue_free()
+		return
+	
+	# Iterate through polygons
+	for poly in poly_list:
+		# Remove existing collision
+		poly.collision.queue_free()
+		poly.collision = null
+		
+		# Add polygon
+		poly.polygon = add_polygon(poly.polygon)
+		
+		# Recenter polygon
+		poly.recenter()
+		poly.call_deferred("prepare_commit")
+	
+	# Delete self
+	await get_tree().physics_frame
+	physics_body.queue_free()

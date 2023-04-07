@@ -66,7 +66,9 @@ func build_polygon(points : Array[Vector2]) -> void:
 						current_polygon.type = current_polygon.TYPE.STATIC
 			1:          # Cut
 				current_polygon.type = current_polygon.TYPE.REMOVE
-			2:          # Intersect
+			2:          # Add
+				current_polygon.type = current_polygon.TYPE.ADD
+			3:          # Intersect (TEMP CODE)
 				pass
 		
 		# Add physics type
@@ -164,7 +166,7 @@ func draw_points() -> void:
 		if polygon is Polygon:
 			# Iterate through vertices
 			index = 0
-			for point in polygon.polygon:
+			for point in polygon:
 				match index:
 					0: draw_circle(point, 3, Color.GREEN)
 					_: draw_circle(point, 2.5, Color.RED)
