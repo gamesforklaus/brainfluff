@@ -1,18 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://djeks4n1klevb"]
+[gd_scene load_steps=6 format=3 uid="uid://c3e36315gytnu"]
 
 [ext_resource type="FontFile" uid="uid://18rahk40gh2j" path="res://fnt/EspressoDolce.ttf" id="1_q8hnx"]
 [ext_resource type="Script" path="res://script/tool.gd" id="2_m2to2"]
 [ext_resource type="PackedScene" uid="uid://dhhxr3dbvqhoy" path="res://scene/tools/vertex_tool.tscn" id="3_yymin"]
+[ext_resource type="Script" path="res://script/Player.gd" id="4_yaybw"]
 
-[sub_resource type="AudioStreamWAV" id="AudioStreamWAV_5podo"]
-loop_mode = 1
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_os34n"]
+size = Vector2(14, 14)
 
 [node name="root" type="Node"]
 
 [node name="ui" type="CanvasLayer" parent="."]
 
 [node name="mode" type="RichTextLabel" parent="ui"]
-modulate = Color(1, 1, 1, 0.4)
+modulate = Color(1, 0.113725, 0.568627, 0.670588)
 offset_left = -18.0
 offset_top = -41.0
 offset_right = 1346.0
@@ -26,7 +27,7 @@ text = "vertex mode"
 metadata/_edit_lock_ = true
 
 [node name="instruction" type="RichTextLabel" parent="ui"]
-modulate = Color(1, 1, 1, 0.4)
+modulate = Color(0.85098, 0, 0.47451, 1)
 clip_contents = false
 offset_left = 10.0
 offset_top = 618.0
@@ -56,15 +57,68 @@ CONNECTOR_NODE = NodePath("../world/connector")
 
 [node name="vertex_tool" parent="tool_manager" instance=ExtResource("3_yymin")]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="tool_manager"]
-stream = SubResource("AudioStreamWAV_5podo")
-volume_db = 0.444
-autoplay = true
-
 [node name="world" type="Node2D" parent="."]
 
 [node name="geometry" type="Node" parent="world"]
 
+[node name="StaticBody2D" type="StaticBody2D" parent="world/geometry"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/geometry/StaticBody2D"]
+polygon = PackedVector2Array(158, 251, 250, 251, 236, 310, 173, 310)
+
 [node name="connector" type="Node" parent="world"]
 
 [node name="editor_cam" type="Camera2D" parent="world"]
+position_smoothing_enabled = true
+
+[node name="player" type="Node" parent="world"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="world/player"]
+position = Vector2(204, 172)
+script = ExtResource("4_yaybw")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="world/player/RigidBody2D"]
+mass = 0.25
+
+[node name="Polygon2D2" type="Polygon2D" parent="world/player/RigidBody2D/RigidBody2D"]
+color = Color(1, 0.898039, 0, 1)
+polygon = PackedVector2Array(-7, -5, 7, -5, 7, -19, -7, -19)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world/player/RigidBody2D/RigidBody2D"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_os34n")
+disabled = true
+
+[node name="Polygon2D" type="Polygon2D" parent="world/player/RigidBody2D"]
+position = Vector2(0, -0.0205688)
+scale = Vector2(1, 1.00121)
+color = Color(0.670588, 0, 1, 1)
+polygon = PackedVector2Array(-7, 17, 0, 9.3134, 7, 17, 7, -3.86364, 0, -3.86364, -7, -3.86364)
+
+[node name="Line2D" type="Line2D" parent="world/player/RigidBody2D/Polygon2D"]
+position = Vector2(0, -0.97824)
+scale = Vector2(1, 0.993506)
+points = PackedVector2Array(-8, -3, -15, 9)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+sharp_limit = 1.0
+round_precision = 6
+
+[node name="Line2D2" type="Line2D" parent="world/player/RigidBody2D/Polygon2D"]
+position = Vector2(1.56724e-08, 5.01451)
+rotation = -3.14159
+scale = Vector2(1, 0.993506)
+points = PackedVector2Array(-15, -2.99993, -7.99996, 9.00004)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+sharp_limit = 1.0
+round_precision = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/player/RigidBody2D"]
+polygon = PackedVector2Array(-7, 17, 0, 9, 7, 17, 7, -4, -7, -4)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="world/player/RigidBody2D"]
+position = Vector2(0, -5)
+node_a = NodePath("..")
+node_b = NodePath("../RigidBody2D")
+softness = 1.16

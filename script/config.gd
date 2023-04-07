@@ -9,6 +9,7 @@ var config = {
 		"h_origin" : true,
 		"mode"     : 0,
 		"physics"  : true,
+		"color"  : 0x0000ff,
 	}
 }
 
