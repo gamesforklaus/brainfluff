@@ -10,3 +10,9 @@ res://script/config.gd
 res://scene/property/swatch_property.tscn
 res://scene/property/switch_property.tscn
 res://script/prop_swatch.gd
+res://scene/root.tscn
+res://script/editor_cam.gd
+res://script/vertex_mode.gd
+res://scene/editor_cam.tscn
+res://script/inspector.gd
+res://script/ins_cam_details.gd

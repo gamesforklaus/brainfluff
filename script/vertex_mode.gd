@@ -66,9 +66,7 @@ func build_polygon(points : Array[Vector2]) -> void:
 						current_polygon.type = current_polygon.TYPE.STATIC
 			1:          # Cut
 				current_polygon.type = current_polygon.TYPE.REMOVE
-			2:          # Add
-				current_polygon.type = current_polygon.TYPE.ADD
-			3:          # Intersect (TEMP CODE)
+			2:          # Intersect (TEMP CODE)
 				pass
 		
 		# Add physics type

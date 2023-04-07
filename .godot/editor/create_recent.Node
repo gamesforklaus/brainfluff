@@ -1,3 +1,5 @@
+Node
+Control
 MarginContainer
 HBoxContainer
 ColorPickerButton
@@ -12,7 +14,6 @@ CollisionShape2D
 DampedSpringJoint2D
 Polygon2D
 Line2D
-Node
 ParallaxBackground
 SubViewport
 ColorPicker
@@ -20,7 +21,6 @@ RichTextLabel
 AudioStreamPlayer
 Camera2D
 Node2D
-Control
 OptionButton
 ColorRect
 HSeparator
@@ -30,4 +30,3 @@ VBoxContainer
 Window
 ItemList
 Button
-CanvasLayer

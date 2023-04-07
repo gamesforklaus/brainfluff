@@ -1,15 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://djeks4n1klevb"]
+[gd_scene load_steps=7 format=3 uid="uid://djeks4n1klevb"]
 
 [ext_resource type="FontFile" uid="uid://18rahk40gh2j" path="res://fnt/EspressoDolce.ttf" id="1_q8hnx"]
 [ext_resource type="Script" path="res://script/tool.gd" id="2_m2to2"]
+[ext_resource type="Script" path="res://script/ins_cam_details.gd" id="3_tpmlb"]
 [ext_resource type="PackedScene" uid="uid://dhhxr3dbvqhoy" path="res://scene/tools/vertex_tool.tscn" id="3_yymin"]
+[ext_resource type="PackedScene" uid="uid://ba0g6fvegkku7" path="res://scene/editor_cam.tscn" id="4_exu58"]
+[ext_resource type="FontFile" uid="uid://cldln6hq1yusn" path="res://fnt/MonospaceTypewriter.ttf" id="5_o6oxp"]
 
 [node name="root" type="Node"]
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-[node name="mode" type="RichTextLabel" parent="ui"]
+[node name="vertex_mode_instructions" type="Control" parent="ui"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="mode" type="RichTextLabel" parent="ui/vertex_mode_instructions"]
 modulate = Color(1, 1, 1, 0.4)
+layout_mode = 0
 offset_left = -18.0
 offset_top = -41.0
 offset_right = 1346.0
@@ -20,11 +32,11 @@ theme_override_colors/font_outline_color = Color(0.211765, 0.211765, 0.211765, 1
 theme_override_fonts/normal_font = ExtResource("1_q8hnx")
 theme_override_font_sizes/normal_font_size = 195
 text = "vertex mode"
-metadata/_edit_lock_ = true
 
-[node name="instruction" type="RichTextLabel" parent="ui"]
+[node name="instruction" type="RichTextLabel" parent="ui/vertex_mode_instructions"]
 modulate = Color(1, 1, 1, 0.4)
 clip_contents = false
+layout_mode = 0
 offset_left = 10.0
 offset_top = 618.0
 offset_right = 423.0
@@ -45,6 +57,34 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 
+[node name="inspector" type="Node" parent="ui"]
+
+[node name="cam_details" type="RichTextLabel" parent="ui/inspector" node_paths=PackedStringArray("TARGET")]
+modulate = Color(1, 1, 1, 0.4)
+clip_contents = false
+offset_left = 758.0
+offset_top = -17.0
+offset_right = 1273.0
+offset_bottom = 48.0
+pivot_offset = Vector2(0, 177)
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.603922, 0.603922, 0.603922, 1)
+theme_override_colors/font_outline_color = Color(0.211765, 0.211765, 0.211765, 1)
+theme_override_fonts/normal_font = ExtResource("5_o6oxp")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[right] 
+camera position ... x0.y0
+camera zoom ... 0.1
+"
+fit_content = true
+scroll_active = false
+scroll_following = true
+autowrap_mode = 0
+script = ExtResource("3_tpmlb")
+TARGET = NodePath("../../../world/editor_cam")
+metadata/_edit_lock_ = true
+
 [node name="tool_manager" type="Node" parent="." node_paths=PackedStringArray("WORLD_NODE", "GEOMETRY_NODE", "CONNECTOR_NODE")]
 script = ExtResource("2_m2to2")
 WORLD_NODE = NodePath("../world")
@@ -59,4 +99,4 @@ CONNECTOR_NODE = NodePath("../world/connector")
 
 [node name="connector" type="Node" parent="world"]
 
-[node name="editor_cam" type="Camera2D" parent="world"]
+[node name="editor_cam" parent="world" instance=ExtResource("4_exu58")]
