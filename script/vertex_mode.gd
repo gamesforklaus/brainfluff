@@ -72,7 +72,7 @@ func build_polygon(points : Array[Vector2]) -> void:
 				pass
 		
 		# Add physics type
-		if type:
+		if type && mode == 0:
 			current_body = RigidBody2D.new()
 			current_body.physics_material_override = mat
 			current_body.center_of_mass_mode = 1
@@ -86,7 +86,6 @@ func build_polygon(points : Array[Vector2]) -> void:
 	# Update polygons if they exist
 	current_polygon.set_polygon(points)
 	current_polygon.TEMP_POLY.set_polygon(points)
-	
 
 # Updates the polygon building overlay
 func update_temp_polygon(points : Array[Vector2]) -> void:

@@ -1,11 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://djeks4n1klevb"]
+[gd_scene load_steps=4 format=3 uid="uid://djeks4n1klevb"]
 
 [ext_resource type="FontFile" uid="uid://18rahk40gh2j" path="res://fnt/EspressoDolce.ttf" id="1_q8hnx"]
 [ext_resource type="Script" path="res://script/tool.gd" id="2_m2to2"]
 [ext_resource type="PackedScene" uid="uid://dhhxr3dbvqhoy" path="res://scene/tools/vertex_tool.tscn" id="3_yymin"]
-
-[sub_resource type="AudioStreamWAV" id="AudioStreamWAV_5podo"]
-loop_mode = 1
 
 [node name="root" type="Node"]
 
@@ -55,11 +52,6 @@ GEOMETRY_NODE = NodePath("../world/geometry")
 CONNECTOR_NODE = NodePath("../world/connector")
 
 [node name="vertex_tool" parent="tool_manager" instance=ExtResource("3_yymin")]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="tool_manager"]
-stream = SubResource("AudioStreamWAV_5podo")
-volume_db = 0.444
-autoplay = true
 
 [node name="world" type="Node2D" parent="."]
 

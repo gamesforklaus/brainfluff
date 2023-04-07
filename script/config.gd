@@ -27,7 +27,6 @@ func get_config_value(key : String):
 	# Get config value
 	var conf_value
 	for segment in segments:
-		print(segment)
 		if config.has(segment):
 			conf_value = config.get(segment)
 			continue

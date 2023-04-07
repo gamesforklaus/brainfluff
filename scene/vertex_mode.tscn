@@ -54,12 +54,9 @@ cut - Subtracts from geometry
 intersect - Subtracts from existing geometry, and creates new geometry in open space. "
 
 [node name="toggle" parent="sort/mode" index="1"]
-item_count = 4
 popup/item_0/text = "build"
 popup/item_1/text = "cut"
-popup/item_2/text = "union"
-popup/item_3/text = "intersect"
-popup/item_3/id = 3
+popup/item_2/text = "intersect"
 
 [node name="h_origin" parent="sort" instance=ExtResource("2_v0rlg")]
 layout_mode = 2
