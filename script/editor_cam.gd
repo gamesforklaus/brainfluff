@@ -8,9 +8,6 @@ class_name EditorCamera
 # has occured (e.g. movement, zoom)
 signal camera_event()
 
-# Camera inspector
-@onready var inspector := $cam_details
-
 # Zoom parameters
 const ZOOM_INCREMENT : float = 0.1
 const ZOOM_MIN       : float = 0.2
