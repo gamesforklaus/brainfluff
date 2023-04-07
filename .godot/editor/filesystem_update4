@@ -16,3 +16,7 @@ res://script/vertex_mode.gd
 res://scene/editor_cam.tscn
 res://script/inspector.gd
 res://script/ins_cam_details.gd
+res://script/tool.gd
+res://script/main.gd
+res://script/toolkit_menu.gd
+res://scene/property/drop_property.tscn

@@ -25,6 +25,7 @@ autowrap_mode = 0
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+focus_mode = 0
 mouse_default_cursor_shape = 2
 button_mask = 3
 alignment = 2

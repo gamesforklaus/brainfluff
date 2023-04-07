@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://meyimw0vcv62"]
+
+[ext_resource type="FontFile" uid="uid://18rahk40gh2j" path="res://fnt/EspressoDolce.ttf" id="1_pt4f5"]
+
+[node name="vertex_mode_instructions" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="mode" type="RichTextLabel" parent="."]
+modulate = Color(1, 1, 1, 0.4)
+layout_mode = 0
+offset_left = -18.0
+offset_top = -41.0
+offset_right = 1346.0
+offset_bottom = 208.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.603922, 0.603922, 0.603922, 1)
+theme_override_colors/font_outline_color = Color(0.211765, 0.211765, 0.211765, 1)
+theme_override_fonts/normal_font = ExtResource("1_pt4f5")
+theme_override_font_sizes/normal_font_size = 195
+text = "vertex mode"
+
+[node name="instruction" type="RichTextLabel" parent="."]
+modulate = Color(1, 1, 1, 0.4)
+clip_contents = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 618.0
+offset_right = 423.0
+offset_bottom = 714.0
+pivot_offset = Vector2(0, 177)
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.603922, 0.603922, 0.603922, 1)
+theme_override_colors/font_outline_color = Color(0.211765, 0.211765, 0.211765, 1)
+theme_override_fonts/normal_font = ExtResource("1_pt4f5")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "lmb - plot vertex
+z - commit shape
+x - delete shape
+"
+fit_content = true
+scroll_active = false
+scroll_following = true
+autowrap_mode = 0

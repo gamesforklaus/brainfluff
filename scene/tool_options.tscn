@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjxxn3k5pigqp"]
+[gd_scene load_steps=2 format=3 uid="uid://bjxxn3k5pigqp"]
 
 [ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_lj3rl"]
-[ext_resource type="PackedScene" uid="uid://d1udl16al55us" path="res://scene/vertex_mode.tscn" id="2_wdy5r"]
 
 [node name="tool_options" type="Window"]
 disable_3d = true
@@ -10,5 +9,3 @@ size = Vector2i(256, 478)
 unresizable = true
 content_scale_mode = 1
 theme = ExtResource("1_lj3rl")
-
-[node name="vertex_mode" parent="." instance=ExtResource("2_wdy5r")]

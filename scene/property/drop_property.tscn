@@ -26,6 +26,7 @@ autowrap_mode = 0
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pkk5a")
 theme_override_font_sizes/font_size = 16

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://mp7ar1txyyiv"]
+[gd_scene load_steps=8 format=3 uid="uid://mp7ar1txyyiv"]
 
 [ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_h144t"]
 [ext_resource type="Texture2D" uid="uid://dbtyb57sm81we" path="res://gfx/ui/svg/ico_vert.svg" id="2_mic4p"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://oyrrhuxnvobo" path="res://gfx/ui/svg/ico_poly.svg" id="4_0rlkh"]
 [ext_resource type="Texture2D" uid="uid://bxwvhqge5akk6" path="res://gfx/ui/svg/ico_del.svg" id="5_b3rts"]
 [ext_resource type="Texture2D" uid="uid://bvxwkjldamnwy" path="res://gfx/ui/svg/ico_stamp.svg" id="6_ihad7"]
+[ext_resource type="Script" path="res://script/toolkit_menu.gd" id="7_il3p6"]
 
 [node name="tools" type="Window"]
 disable_3d = true
@@ -35,3 +36,6 @@ item_3/text = "Remove Mode"
 item_3/icon = ExtResource("5_b3rts")
 item_4/text = "Stamper Mode"
 item_4/icon = ExtResource("6_ihad7")
+script = ExtResource("7_il3p6")
+
+[connection signal="item_selected" from="toolkit" to="toolkit" method="item_clicked"]

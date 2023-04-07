@@ -25,6 +25,7 @@ autowrap_mode = 0
 [node name="toggle" type="CheckButton" parent="."]
 layout_mode = 2
 size_flags_vertical = 0
+focus_mode = 0
 mouse_default_cursor_shape = 2
 button_mask = 3
 alignment = 2
