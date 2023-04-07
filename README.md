@@ -9,7 +9,7 @@ An open source physics sandbox created in Godot
 - [ ] Modifiable verticies (translation, deletion)
 - [ ] Modifiable polygons (translation, rotation, scaling)
 - [ ] Grid system
-- [ ] Editor camera
+- [x] Editor camera
 
 # to-do (future)
 - [ ] RigidBody player controller
