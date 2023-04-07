@@ -5,6 +5,7 @@ An open source physics sandbox created in Godot
 - [x] Vertex polygon building
 - [x] Polygon physics body assignment
 - [ ] Polygon CSG-type manipulation
+- [ ] Dotted geometry (pre-commit)
 - [ ] Modifiable verticies (translation, deletion)
 - [ ] Modifiable polygons (translation, rotation, scaling)
 - [ ] Grid system

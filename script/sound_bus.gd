@@ -11,7 +11,8 @@ var sound_effects = [
 	preload("res://snd/delete.wav"),
 	preload("res://snd/joint.wav"),
 	preload("res://snd/plot.wav"),
-	preload("res://snd/stamp.wav")
+	preload("res://snd/stamp.wav"),
+	preload("res://snd/mus_editor.wav")
 ]
 
 # ID enum
@@ -21,7 +22,8 @@ enum {
 	Delete,
 	Joint,
 	Plot,
-	Stamp
+	Stamp,
+	EditorMus
 }
 
 # FUNCTION

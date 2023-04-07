@@ -29,7 +29,12 @@ var type : TYPE = TYPE.STATIC
 
 func _ready() -> void:
 	# Set color
-	set_color(COLOR[type])
+	if type == TYPE.STATIC or type == TYPE.PHYSICS:
+		var colorPick = Config.get_config_value("vertex/color")
+		set_color(colorPick)
+	else:
+		# Set color
+		set_color(COLOR[type])
 
 # FUNCTION
 #-------------------------------------------------------------------------------
