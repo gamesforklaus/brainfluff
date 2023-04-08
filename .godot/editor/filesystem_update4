@@ -20,3 +20,5 @@ res://script/tool.gd
 res://script/main.gd
 res://script/toolkit_menu.gd
 res://scene/property/drop_property.tscn
+res://scene/entity/player.tscn
+res://script/player.gd

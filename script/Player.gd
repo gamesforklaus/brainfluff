@@ -1,16 +1,20 @@
-# Player.gd, currently just an example taken off the internet that was slightly edited, 
-#but hopefully...
-#will evolve into it's own thing.
+# player.gd
 extends RigidBody2D
+class_name Player
 
-var speed = 40
-var jump_speed = -10
-var gravity = 20
+# Handles player information.
 
-func _physics_process(delta):
-	# Input affects x axis only
-	linear_velocity.x = Input.get_axis("leftMove", "rightMove") * speed
-	
-	# Only allow jumping when on the ground
-	if Input.is_action_just_pressed("jumpAction"):
-		linear_velocity.y = jump_speed
+'''important'''
+# For those who this may concern, this is UNFINISHED!
+# There are various steps that must be taken before
+# this component of Brainfluff can be considered
+# feature complete, such as:
+#
+#   * Movement 
+#   * Grabbing
+#   * Gyroscope-type player rotation            (seen in Yellowhead footage)
+#   * Player-tilt affecting gravitational force (seen in Yellowhead footage)
+#	* Yellowhead skeletal rig
+#   * Inverse kinematic system                  (seen in Yellowhead footage)
+#		* Stretchy arm IK
+#		* Legs -> Ground IK

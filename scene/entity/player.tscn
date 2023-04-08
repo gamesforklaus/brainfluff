@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy1tlcfwt6iqo"]
+
+[ext_resource type="Script" path="res://script/player.gd" id="1_lt1rw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bnnl4"]
+radius = 19.0
+height = 82.0
+
+[node name="player" type="RigidBody2D"]
+script = ExtResource("1_lt1rw")
+
+[node name="vis" type="Node2D" parent="."]
+
+[node name="torso" type="Node2D" parent="vis"]
+
+[node name="inner" type="Polygon2D" parent="vis/torso"]
+position = Vector2(0, -2)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-19, 2, -14, -53, -17, -61, 17, -61, 14, -53, 19, 2, 17, 2, 0, -23, -16, 2)
+
+[node name="poly" type="Polygon2D" parent="vis/torso"]
+position = Vector2(0, -2)
+color = Color(1, 0.258824, 0.764706, 1)
+polygon = PackedVector2Array(-17, 0, -12, -53, -14, -59, 14, -59, 12, -53, 17, 0, 0, -26)
+
+[node name="neck" type="Node2D" parent="vis/torso"]
+
+[node name="head" type="Node2D" parent="vis/torso/neck"]
+position = Vector2(0, -65)
+
+[node name="inner" type="Polygon2D" parent="vis/torso/neck/head"]
+position = Vector2(0, 64)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-29, -64, -29, -121, 29, -121, 29, -64)
+
+[node name="poly" type="Polygon2D" parent="vis/torso/neck/head"]
+position = Vector2(0, 64)
+color = Color(1, 1, 0.258824, 1)
+polygon = PackedVector2Array(-27, -66, -27, -119, 27, -119, 27, -66)
+
+[node name="eyes" type="Node2D" parent="vis/torso/neck/head"]
+
+[node name="l" type="Polygon2D" parent="vis/torso/neck/head/eyes"]
+position = Vector2(-6, 59)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(13, -86, 13, -100, 18, -100, 18, -86)
+
+[node name="r" type="Polygon2D" parent="vis/torso/neck/head/eyes"]
+position = Vector2(-25, 59)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(13, -86, 13, -100, 18, -100, 18, -86)
+
+[node name="line" type="Line2D" parent="vis/torso/neck"]
+points = PackedVector2Array(0, -63, 0, -65)
+width = 4.0
+default_color = Color(0, 0, 0, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="arm_l" type="Node2D" parent="vis/torso"]
+
+[node name="vis" type="Polygon2D" parent="vis/torso/arm_l"]
+position = Vector2(0, 2)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-14, -58, -59, -57, -59, -55, -14, -54, -13, -56)
+
+[node name="arm_r" type="Node2D" parent="vis/torso"]
+
+[node name="vis" type="Polygon2D" parent="vis/torso/arm_r"]
+position = Vector2(0, 2)
+scale = Vector2(-1, 1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-14, -58, -59, -57, -59, -55, -14, -54, -13, -56)
+
+[node name="col" type="CollisionShape2D" parent="."]
+position = Vector2(0, -41)
+shape = SubResource("CapsuleShape2D_bnnl4")
