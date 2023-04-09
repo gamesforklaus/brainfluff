@@ -39,6 +39,7 @@ radius = 19.0
 height = 82.0
 
 [node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("HEAD_BONE", "JAW_BONE", "FOOT_L", "FOOT_R", "ARM_L", "ARM_R")]
+mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_5310s")
 max_contacts_reported = 1
 contact_monitor = true

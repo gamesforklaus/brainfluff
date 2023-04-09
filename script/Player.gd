@@ -21,9 +21,9 @@ class_name Puppet
 
 @export_category("Puppet")
 @export_subgroup("Attributes")
-@export var GROUND_SPEED  : float     = 400.0
-@export var AIR_SPEED     : float     = 10.0
-@export var JUMP_FORCE    : float     = 500.0
+@export var GROUND_SPEED  : float     = 27500.0
+@export var AIR_SPEED     : float     = 8000.0
+@export var JUMP_FORCE    : float     = 2500.0
 @export_subgroup("Nodes")
 @export var HEAD_BONE     : Bone2D
 @export var JAW_BONE      : Bone2D
@@ -58,12 +58,31 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 	# Declare variables
 	var on_ground = is_on_ground(state)
 	var move_direction = get_movement_vector()
+	var delta = state.get_step()
 	
 	# State machine
 	match p_state:
-		0:
-			return
-
+		pS.IDLE:
+			# Transitions
+			if move_direction.x:
+				change_state(pS.MOVE)
+			elif on_ground and Input.is_action_just_pressed("jump"):
+				change_state(pS.JUMP)
+		pS.MOVE:
+			# Transitions
+			if !move_direction.x:
+				change_state(pS.IDLE)
+			elif !on_ground:
+				change_state(pS.FALL)
+			elif on_ground and Input.is_action_just_pressed("jump"):
+				change_state(pS.JUMP)
+			
+			# Movement
+			state.linear_velocity.x = lerp(
+				state.linear_velocity.x,
+				move_direction.x * GROUND_SPEED * delta,
+				0.1
+			)
 # FUNCTION
 #-------------------------------------------------------------------------------
 
@@ -72,12 +91,16 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 func change_state(target : pS) -> void:
 	if not target in trans[p_state]:
 		return
+	initialize_state(target)
 
 # Handles initial calls when changing states
 func initialize_state(target : pS) -> void:
+	p_state = target
 	match target:
 		pS.IDLE:
 			linear_velocity.x = 0
+		pS.JUMP:
+			apply_central_impulse(floor_normal * JUMP_FORCE)
 		pS.FALL:
 			return
 		_:
