@@ -1,77 +1,271 @@
-[gd_scene load_steps=3 format=3 uid="uid://cy1tlcfwt6iqo"]
+[gd_scene load_steps=9 format=3 uid="uid://cy1tlcfwt6iqo"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_lt1rw"]
+[ext_resource type="Script" path="res://script/bone_stretch.gd" id="2_oe7w4"]
+[ext_resource type="Script" path="res://script/player_mouse.gd" id="3_32mvs"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5310s"]
+friction = 0.9
+absorbent = true
+
+[sub_resource type="SkeletonModification2DJiggle" id="SkeletonModification2DJiggle_b388t"]
+target_nodepath = NodePath("../pointer")
+jiggle_data_chain_length = 1
+stiffness = 10.0
+mass = 0.25
+damping = 0.95
+joint_data/0/bone_index = 6
+joint_data/0/bone2d_node = NodePath("waist/torso/arm_r")
+joint_data/0/override_defaults = false
+
+[sub_resource type="SkeletonModification2DJiggle" id="SkeletonModification2DJiggle_co3my"]
+target_nodepath = NodePath("../pointer")
+jiggle_data_chain_length = 1
+stiffness = 11.0
+mass = 0.25
+damping = 0.95
+joint_data/0/bone_index = 5
+joint_data/0/bone2d_node = NodePath("waist/torso/arm_l")
+joint_data/0/override_defaults = false
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_kbwhi"]
+enabled = true
+modification_count = 2
+modifications/0 = SubResource("SkeletonModification2DJiggle_b388t")
+modifications/1 = SubResource("SkeletonModification2DJiggle_co3my")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bnnl4"]
 radius = 19.0
 height = 82.0
 
-[node name="player" type="RigidBody2D"]
+[node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("HEAD_BONE", "JAW_BONE", "FOOT_L", "FOOT_R", "ARM_L", "ARM_R")]
+physics_material_override = SubResource("PhysicsMaterial_5310s")
+max_contacts_reported = 1
+contact_monitor = true
+can_sleep = false
+lock_rotation = true
 script = ExtResource("1_lt1rw")
+HEAD_BONE = NodePath("vis/waist/torso/neck/jaw/head")
+JAW_BONE = NodePath("vis/waist/torso/neck/jaw")
+FOOT_L = NodePath("vis/waist/leg_l/foot_l")
+FOOT_R = NodePath("vis/waist/leg_r/foot_r")
+ARM_L = NodePath("vis/waist/torso/arm_l")
+ARM_R = NodePath("vis/waist/torso/arm_r")
 
-[node name="vis" type="Node2D" parent="."]
+[node name="vis" type="Skeleton2D" parent="."]
+modification_stack = SubResource("SkeletonModificationStack2D_kbwhi")
 
-[node name="torso" type="Node2D" parent="vis"]
+[node name="waist" type="Bone2D" parent="vis"]
+position = Vector2(0, -22)
+rest = Transform2D(1, 0, 0, 1, 0, -22)
+auto_calculate_length_and_angle = false
+length = 17.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
 
-[node name="inner" type="Polygon2D" parent="vis/torso"]
-position = Vector2(0, -2)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-19, 2, -14, -53, -17, -61, 17, -61, 14, -53, 19, 2, 17, 2, 0, -23, -16, 2)
+[node name="poly" type="Polygon2D" parent="vis/waist"]
+position = Vector2(0, 42)
+color = Color(0, 0.678431, 0.854902, 1)
+skeleton = NodePath("../..")
+polygon = PackedVector2Array(-13, -59, 13, -59, 15, -47, 13, -43, 0, -42, -13, -43, -15, -47)
 
-[node name="poly" type="Polygon2D" parent="vis/torso"]
-position = Vector2(0, -2)
-color = Color(1, 0.258824, 0.764706, 1)
-polygon = PackedVector2Array(-17, 0, -12, -53, -14, -59, 14, -59, 12, -53, 17, 0, 0, -26)
+[node name="back" type="Polygon2D" parent="vis/waist"]
+z_index = -1
+position = Vector2(0, 42)
+color = Color(0, 0.176471, 0.309804, 1)
+skeleton = NodePath("../..")
+polygon = PackedVector2Array(-13.6042, -59.7617, 13.7204, -59.801, 15.8465, -47.005, 13.4054, -42.3196, 0.058075, -41.0203, -13.368, -42.2803, -15.6516, -46.8868)
 
-[node name="neck" type="Node2D" parent="vis/torso"]
+[node name="torso" type="Bone2D" parent="vis/waist"]
+position = Vector2(0, -18)
+rest = Transform2D(1, 0, 0, 1, 0, -18)
+auto_calculate_length_and_angle = false
+length = 23.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
+metadata/_edit_group_ = true
 
-[node name="head" type="Node2D" parent="vis/torso/neck"]
-position = Vector2(0, -65)
+[node name="poly" type="Polygon2D" parent="vis/waist/torso"]
+position = Vector2(0, 36)
+color = Color(0, 0.509804, 0.709804, 1)
+polygon = PackedVector2Array(-12, -53, -14, -56, -14, -59, 14, -59, 14, -56, 12, -53, 11, -36, -11, -36)
 
-[node name="inner" type="Polygon2D" parent="vis/torso/neck/head"]
-position = Vector2(0, 64)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-29, -64, -29, -121, 29, -121, 29, -64)
+[node name="back" type="Polygon2D" parent="vis/waist/torso"]
+z_index = -1
+position = Vector2(0, 36)
+color = Color(0, 0.176471, 0.309804, 1)
+polygon = PackedVector2Array(-12.8149, -52.5647, -14.8036, -55.4815, -14.8921, -59.9451, 15.2042, -59.9009, 15.0716, -55.7909, 12.8619, -52.4321, 11.9338, -35.3732, -11.875, -35.3438)
 
-[node name="poly" type="Polygon2D" parent="vis/torso/neck/head"]
-position = Vector2(0, 64)
-color = Color(1, 1, 0.258824, 1)
-polygon = PackedVector2Array(-27, -66, -27, -119, 27, -119, 27, -66)
+[node name="neck" type="Bone2D" parent="vis/waist/torso"]
+position = Vector2(0, -23)
+rest = Transform2D(1, 0, 0, 1, 0, -23)
+auto_calculate_length_and_angle = false
+length = 5.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
 
-[node name="eyes" type="Node2D" parent="vis/torso/neck/head"]
+[node name="jaw" type="Bone2D" parent="vis/waist/torso/neck"]
+position = Vector2(0, -5)
+rest = Transform2D(1, 0, 0, 1, 0, -5)
+auto_calculate_length_and_angle = false
+length = 15.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
+metadata/_edit_group_ = true
 
-[node name="l" type="Polygon2D" parent="vis/torso/neck/head/eyes"]
-position = Vector2(-6, 59)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(13, -86, 13, -100, 18, -100, 18, -86)
+[node name="poly" type="Polygon2D" parent="vis/waist/torso/neck/jaw"]
+position = Vector2(0, 66)
+color = Color(0, 0.509804, 0.709804, 1)
+polygon = PackedVector2Array(-26, -71, -28, -79, -27, -85, -18, -82, -17, -77, -8, -76, -7, -81, -0.00564575, -81, 7, -81, 8, -76, 17, -77, 18, -82, 28, -85, 29, -78, 26, -71, 20, -68, 4, -66, -4, -66, -20, -68)
 
-[node name="r" type="Polygon2D" parent="vis/torso/neck/head/eyes"]
-position = Vector2(-25, 59)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(13, -86, 13, -100, 18, -100, 18, -86)
+[node name="back" type="Polygon2D" parent="vis/waist/torso/neck/jaw"]
+z_index = -1
+position = Vector2(0, 66)
+color = Color(0, 0.176471, 0.309804, 1)
+polygon = PackedVector2Array(-26.675, -70.3933, -28.8441, -78.8195, -27.6761, -85.9526, -17.1225, -82.7824, -16.2465, -77.6099, -8.6963, -76.9425, -7.65346, -81.9481, 7.89375, -81.9113, 8.94606, -77.1408, 16.2421, -78.0879, 16.8033, -82.8233, 28.8698, -86.2608, 30.1326, -78.1931, 26.8002, -69.9851, 20.1707, -66.9334, 4.02643, -64.8454, -4.06603, -64.8454, -20.251, -67.1397)
 
-[node name="line" type="Line2D" parent="vis/torso/neck"]
-points = PackedVector2Array(0, -63, 0, -65)
+[node name="head" type="Bone2D" parent="vis/waist/torso/neck/jaw"]
+position = Vector2(0, -17)
+rotation = -8.52315e-05
+rest = Transform2D(1, -8.52315e-05, 8.52315e-05, 1, 0, -17)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
+
+[node name="poly" type="Polygon2D" parent="vis/waist/torso/neck/jaw/head"]
+position = Vector2(-1, 65)
+color = Color(0, 0.678431, 0.854902, 1)
+polygon = PackedVector2Array(-25, -69, -24, -85, -28, -90, -26, -95, -22, -98, -17, -95, -12, -97, -14, -103, -10, -105, -5, -106, -4, -100, 2, -101, 7, -100, 8, -106, 13, -105, 17, -102, 15, -97, 20, -95, 25, -98, 29, -95, 31, -90, 27, -85, 28, -69, 18, -66, 17, -61, 10, -60, 9, -65, -7, -65, -8, -60, -15, -61, -16, -66)
+
+[node name="back" type="Polygon2D" parent="vis/waist/torso/neck/jaw/head"]
+z_index = -1
+position = Vector2(-1, 65)
+color = Color(0, 0.176471, 0.309804, 1)
+polygon = PackedVector2Array(-25.9699, -67.1029, -24.9984, -84.0022, -29.1658, -89.7392, -26.9178, -95.8259, -21.8607, -99.1498, -16.851, -96.0592, -13.2924, -97.5572, -15.0712, -103.363, -10.1209, -105.932, -3.99642, -107, -2.99693, -101, 2.00314, -102, 6.00307, -101, 7.00357, -106.999, 13.5436, -106.041, 18.0031, -101.999, 16.2992, -97.5547, 19.9512, -96.1029, 25.0029, -98.998, 29.9711, -95.6806, 32.0775, -89.6872, 28.0504, -84.4903, 29.0408, -67.2591, 18.9734, -64.2434, 17.9971, -59.1863, 9.15715, -58.2601, 7.93257, -63.3257, -5.93977, -63.3931, -7.13213, -58.0959, -16.005, -59.123, -16.9648, -63.99)
+
+[node name="eyes" type="Node2D" parent="vis/waist/torso/neck/jaw/head"]
+position = Vector2(0, -6)
+
+[node name="l" type="Polygon2D" parent="vis/waist/torso/neck/jaw/head/eyes"]
+position = Vector2(-25.5, 86)
+color = Color(0, 0.176471, 0.309804, 1)
+polygon = PackedVector2Array(13, -86, 13, -97, 16, -97, 16, -86)
+
+[node name="nose" type="Polygon2D" parent="vis/waist/torso/neck/jaw/head/eyes"]
+position = Vector2(-15.5, 90)
+color = Color(0, 0.176471, 0.309804, 1)
+polygon = PackedVector2Array(14, -89, 15, -94, 16, -94, 17, -89)
+
+[node name="r" type="Polygon2D" parent="vis/waist/torso/neck/jaw/head/eyes"]
+position = Vector2(-3.5, 86)
+color = Color(0, 0.176471, 0.309804, 1)
+polygon = PackedVector2Array(13, -86, 13, -97, 16, -97, 16, -86)
+
+[node name="line" type="Line2D" parent="vis/waist/torso/neck"]
+z_index = -1
+position = Vector2(0, 61)
+points = PackedVector2Array(0, -61, 0, -66)
 width = 4.0
-default_color = Color(0, 0, 0, 1)
+default_color = Color(0, 0.176471, 0.309804, 1)
 begin_cap_mode = 1
 end_cap_mode = 1
 
-[node name="arm_l" type="Node2D" parent="vis/torso"]
+[node name="arm_l" type="Bone2D" parent="vis/waist/torso" node_paths=PackedStringArray("TARGET")]
+position = Vector2(-13, -16)
+rotation = -1.7989
+rest = Transform2D(1, 0, 0, 1, -13, -16)
+auto_calculate_length_and_angle = false
+length = 46.0
+bone_angle = 180.0
+editor_settings/show_bone_gizmo = false
+script = ExtResource("2_oe7w4")
+ENABLED = true
+TARGET = NodePath("../../../../pointer")
+MAXIMUM_LENGTH = 2.5
+metadata/_edit_group_ = true
 
-[node name="vis" type="Polygon2D" parent="vis/torso/arm_l"]
-position = Vector2(0, 2)
-color = Color(0, 0, 0, 1)
+[node name="vis" type="Polygon2D" parent="vis/waist/torso/arm_l"]
+position = Vector2(13, 56)
+color = Color(0, 0.176471, 0.309804, 1)
 polygon = PackedVector2Array(-14, -58, -59, -57, -59, -55, -14, -54, -13, -56)
 
-[node name="arm_r" type="Node2D" parent="vis/torso"]
+[node name="hand_l" type="Marker2D" parent="vis/waist/torso/arm_l"]
+position = Vector2(-46, 0)
 
-[node name="vis" type="Polygon2D" parent="vis/torso/arm_r"]
-position = Vector2(0, 2)
-scale = Vector2(-1, 1)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-14, -58, -59, -57, -59, -55, -14, -54, -13, -56)
+[node name="arm_r" type="Bone2D" parent="vis/waist/torso" node_paths=PackedStringArray("TARGET")]
+position = Vector2(13, -16)
+rotation = 1.7989
+rest = Transform2D(1, 0, 0, 1, 13, -16)
+auto_calculate_length_and_angle = false
+length = 46.0
+bone_angle = 0.0
+editor_settings/show_bone_gizmo = false
+script = ExtResource("2_oe7w4")
+ENABLED = true
+TARGET = NodePath("../../../../pointer")
+MAXIMUM_LENGTH = 2.5
+metadata/_edit_group_ = true
+
+[node name="vis" type="Polygon2D" parent="vis/waist/torso/arm_r"]
+position = Vector2(-13, 56)
+rotation = -3.14159
+scale = Vector2(1, -1)
+color = Color(0, 0.176471, 0.309804, 1)
+polygon = PackedVector2Array(-14, -58, -57.1239, -57.0417, -59, -57, -59, -55, -14, -54, -13, -56)
+
+[node name="hand_r" type="Marker2D" parent="vis/waist/torso/arm_r"]
+position = Vector2(46, 0)
+
+[node name="leg_l" type="Bone2D" parent="vis/waist"]
+position = Vector2(-7, 2)
+rest = Transform2D(1, 0, 0, 1, -7, 2)
+auto_calculate_length_and_angle = false
+length = 20.0
+bone_angle = 90.0
+editor_settings/show_bone_gizmo = false
+metadata/_edit_group_ = true
+
+[node name="poly" type="Polygon2D" parent="vis/waist/leg_l"]
+position = Vector2(0, 59)
+color = Color(0, 0.509804, 0.709804, 1)
+polygon = PackedVector2Array(-6, -60, 5, -59, 1, -39, -1, -39)
+
+[node name="back" type="Polygon2D" parent="vis/waist/leg_l"]
+z_index = -1
+position = Vector2(0, 59)
+color = Color(0, 0.176471, 0.309804, 1)
+polygon = PackedVector2Array(-6.95597, -60.8908, 6.04892, -59.6982, 1.60123, -38.4454, -1.57841, -38.4454)
+
+[node name="foot_l" type="RayCast2D" parent="vis/waist/leg_l"]
+position = Vector2(0, 20)
+
+[node name="leg_r" type="Bone2D" parent="vis/waist"]
+position = Vector2(8, 2)
+rest = Transform2D(1, 0, 0, 1, 8, 2)
+auto_calculate_length_and_angle = false
+length = 20.0
+bone_angle = 90.0
+editor_settings/show_bone_gizmo = false
+metadata/_edit_group_ = true
+
+[node name="poly" type="Polygon2D" parent="vis/waist/leg_r"]
+position = Vector2(0, 59)
+color = Color(0, 0.509804, 0.709804, 1)
+polygon = PackedVector2Array(-6, -59, 5, -60, 1, -39, -1, -39)
+
+[node name="back" type="Polygon2D" parent="vis/waist/leg_r"]
+z_index = -1
+position = Vector2(0, 59)
+color = Color(0, 0.176471, 0.309804, 1)
+polygon = PackedVector2Array(-6.81003, -59.6506, 5.95798, -60.8082, 1.60844, -38.3589, -1.47833, -38.394)
+
+[node name="foot_r" type="RayCast2D" parent="vis/waist/leg_r"]
+position = Vector2(0, 20)
 
 [node name="col" type="CollisionShape2D" parent="."]
 position = Vector2(0, -41)
 shape = SubResource("CapsuleShape2D_bnnl4")
+
+[node name="pointer" type="Marker2D" parent="."]
+script = ExtResource("3_32mvs")
