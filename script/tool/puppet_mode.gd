@@ -43,6 +43,9 @@ func spawn_puppet() -> void:
 	current_puppet.PLAYER_CAM.enabled = true
 	tool_manager.CAM_NODE.enabled = false
 	
+	# Disable visibility
+	toggle_overlay_visibility()
+	
 	# Play sound
 	SoundBus.create_2d_sound(
 		SoundBus.PuppetSpawn,
@@ -57,14 +60,21 @@ func despawn_puppet() -> void:
 		return
 	
 	# Re-enable editor cam
-	tool_manager.CAM_NODE.position = current_puppet.global_position
+	tool_manager.CAM_NODE.global_position = current_puppet.global_position
 	tool_manager.CAM_NODE.enabled = true
 	
 	# Bye bye, puppet
 	current_puppet.queue_free()
+	
+	# Re-enable visibility
+	toggle_overlay_visibility()
 	
 	# Play sound
 	SoundBus.create_global_sound(
 		SoundBus.PuppetRemove,
 		randf_range(0.9, 1.2)
 	)
+
+# Toggles visibility of the puppet cursor
+func toggle_overlay_visibility() -> void:
+	mouse_overlay.visible = not mouse_overlay.visible
