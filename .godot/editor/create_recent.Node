@@ -1,3 +1,4 @@
+Bone2D
 Timer
 Node
 Marker2D
@@ -5,7 +6,6 @@ Node2D
 CollisionPolygon2D
 StaticBody2D
 RayCast2D
-Bone2D
 Skeleton2D
 Line2D
 Polygon2D
@@ -30,4 +30,3 @@ OptionButton
 ColorRect
 HSeparator
 CheckButton
-CenterContainer

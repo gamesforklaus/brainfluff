@@ -1,6 +1,8 @@
 res://default_bus_layout.tres
 res://scene/entity/player.tscn
 res://gfx/ui/theme.tres
+res://script/bone/bone_bobble.gd
 res://scene/root.tscn
 res://scene/property/switch_property.tscn
 res://script/player.gd
+res://script/bone/line_stretch.gd

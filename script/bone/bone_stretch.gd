@@ -5,6 +5,8 @@ class_name StretchBone
 # Stretches towards a point.
 
 @export var ENABLED        : bool      = false
+@export var X_STRETCH      : bool      = true
+@export var Y_STRETCH      : bool      = false
 @export var TARGET         : Node
 @export var MAXIMUM_LENGTH : float     = 4.0
 @export var MINIMUM_LENGTH : float     = 0.2
@@ -35,4 +37,5 @@ func update_stretch() -> void:
 		distance = MINIMUM_LENGTH
 	
 	# Set scale
-	scale.x = lerp(scale.x, distance, 0.5)
+	if X_STRETCH:     scale.x = lerp(scale.x, distance, 0.5)
+	if Y_STRETCH:     scale.y = lerp(scale.y, distance, 0.5)

@@ -24,13 +24,18 @@ class_name Puppet
 @export var GROUND_SPEED  : float     = 17500.0
 @export var AIR_SPEED     : float     = 8000.0
 @export var JUMP_FORCE    : float     = 2500.0
+@export_subgroup("Raycasts")
+@export var FOOT_RAYCAST_L: RayCast2D
+@export var FOOT_RAYCAST_R: RayCast2D
 @export_subgroup("Skeleton")
 @export var HEAD_BONE     : Bone2D
 @export var JAW_BONE      : Bone2D
-@export var FOOT_L        : Marker2D
-@export var FOOT_R        : Marker2D
 @export var ARM_L         : StretchBone
 @export var ARM_R         : StretchBone
+@export var FOOT_L        : Marker2D
+@export var FOOT_R        : Marker2D
+@export var HAND_L        : Marker2D
+@export var HAND_R        : Marker2D
 @export_subgroup("Timers")
 @export var T_BUFFER      : Timer
 @export var T_COYOTE      : Timer
@@ -135,6 +140,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 	
 	# Run animation calls
 	animate_legs()
+	position_feet()
 	
 	# Apply velocity
 	state.linear_velocity.x = velocity
@@ -199,6 +205,18 @@ func animate_legs() -> void:
 			0.2
 		)
 
+# Handles feet IK points
+func position_feet() -> void:
+	# Get collision points
+	var colliders = [
+		FOOT_RAYCAST_L.get_collision_point().y,
+		FOOT_RAYCAST_R.get_collision_point().y,
+	]
+	
+	# Move foot IKs
+	FOOT_L.global_position.y = colliders[0]
+	FOOT_R.global_position.y = colliders[1]
+
 # Returns a movement vector
 func get_movement_vector() -> Vector2:
 	return Input.get_vector(
@@ -212,5 +230,5 @@ func get_movement_vector() -> Vector2:
 func is_on_ground(state : PhysicsDirectBodyState2D) -> bool:
 	return (
 		state.get_contact_count() > 0 and
-		int(state.get_contact_collider_position(0).y) >= int(global_position.y)
+		int(state.get_contact_collider_position(0).y) >= int(global_position.y - 5)
 	)

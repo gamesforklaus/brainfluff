@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://script/tool.gd" id="2_m2to2"]
 [ext_resource type="Script" path="res://script/ins_cam_details.gd" id="3_tpmlb"]
 [ext_resource type="PackedScene" uid="uid://ba0g6fvegkku7" path="res://scene/editor_cam.tscn" id="4_exu58"]
-[ext_resource type="PackedScene" uid="uid://cy1tlcfwt6iqo" path="res://scene/entity/player.tscn" id="4_ncc4q"]
+[ext_resource type="PackedScene" uid="uid://bx8g6coxgxw67" path="res://scene/entity/player.tscn" id="4_ncc4q"]
 [ext_resource type="FontFile" uid="uid://cldln6hq1yusn" path="res://fnt/MonospaceTypewriter.ttf" id="5_o6oxp"]
 
 [node name="root" type="Node"]
@@ -51,7 +51,7 @@ position = Vector2(640, 360)
 [node name="entity" type="Node" parent="world"]
 
 [node name="player" parent="world/entity" instance=ExtResource("4_ncc4q")]
-position = Vector2(640, 360)
+position = Vector2(169, 451)
 
 [node name="geometry" type="Node" parent="world"]
 
@@ -59,7 +59,7 @@ position = Vector2(640, 360)
 position = Vector2(-1, -25)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/geometry/StaticBody2D"]
-polygon = PackedVector2Array(46, 541, 1215, 541, 1217, 657, 43, 656)
+polygon = PackedVector2Array(46, 541, 626.647, 541, 823, 438, 1219, 440, 1217, 657, 43, 656)
 
 [node name="connector" type="Node" parent="world"]
 
