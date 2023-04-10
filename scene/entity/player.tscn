@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cy1tlcfwt6iqo"]
+[gd_scene load_steps=11 format=3 uid="uid://cy1tlcfwt6iqo"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_lt1rw"]
 [ext_resource type="Script" path="res://script/bone_stretch.gd" id="2_oe7w4"]
@@ -9,7 +9,7 @@ friction = 0.9
 absorbent = true
 
 [sub_resource type="SkeletonModification2DJiggle" id="SkeletonModification2DJiggle_b388t"]
-target_nodepath = NodePath("../pointer")
+target_nodepath = NodePath("../ik_pointers/arm_pointer")
 jiggle_data_chain_length = 1
 stiffness = 10.0
 mass = 0.25
@@ -19,7 +19,7 @@ joint_data/0/bone2d_node = NodePath("waist/torso/arm_r")
 joint_data/0/override_defaults = false
 
 [sub_resource type="SkeletonModification2DJiggle" id="SkeletonModification2DJiggle_co3my"]
-target_nodepath = NodePath("../pointer")
+target_nodepath = NodePath("../ik_pointers/arm_pointer")
 jiggle_data_chain_length = 1
 stiffness = 11.0
 mass = 0.25
@@ -28,18 +28,40 @@ joint_data/0/bone_index = 5
 joint_data/0/bone2d_node = NodePath("waist/torso/arm_l")
 joint_data/0/override_defaults = false
 
+[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_3m0d5"]
+bone_index = 7
+bone2d_node = NodePath("waist/leg_l")
+target_nodepath = NodePath("../ik_pointers/l_foot_pointer")
+enable_constraint = true
+constraint_angle_min = 45.0
+constraint_angle_max = 315.0
+constraint_angle_invert = true
+constraint_in_localspace = true
+
+[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_7sqq5"]
+bone_index = 8
+bone2d_node = NodePath("waist/leg_r")
+target_nodepath = NodePath("../ik_pointers/r_foot_pointer")
+enable_constraint = true
+constraint_angle_min = 45.0
+constraint_angle_max = 315.0
+constraint_angle_invert = true
+constraint_in_localspace = true
+
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_kbwhi"]
 enabled = true
-modification_count = 2
+modification_count = 4
 modifications/0 = SubResource("SkeletonModification2DJiggle_b388t")
 modifications/1 = SubResource("SkeletonModification2DJiggle_co3my")
+modifications/2 = SubResource("SkeletonModification2DLookAt_3m0d5")
+modifications/3 = SubResource("SkeletonModification2DLookAt_7sqq5")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bnnl4"]
 radius = 19.0
-height = 82.0
+height = 84.0
 
-[node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("HEAD_BONE", "JAW_BONE", "FOOT_L", "FOOT_R", "ARM_L", "ARM_R")]
-mass = 5.0
+[node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("HEAD_BONE", "JAW_BONE", "FOOT_L", "FOOT_R", "ARM_L", "ARM_R", "T_BUFFER", "T_COYOTE")]
+mass = 4.5
 physics_material_override = SubResource("PhysicsMaterial_5310s")
 max_contacts_reported = 1
 contact_monitor = true
@@ -48,16 +70,18 @@ lock_rotation = true
 script = ExtResource("1_lt1rw")
 HEAD_BONE = NodePath("vis/waist/torso/neck/jaw/head")
 JAW_BONE = NodePath("vis/waist/torso/neck/jaw")
-FOOT_L = NodePath("vis/waist/leg_l/foot_l")
-FOOT_R = NodePath("vis/waist/leg_r/foot_r")
+FOOT_L = NodePath("ik_pointers/l_foot_pointer")
+FOOT_R = NodePath("ik_pointers/r_foot_pointer")
 ARM_L = NodePath("vis/waist/torso/arm_l")
 ARM_R = NodePath("vis/waist/torso/arm_r")
+T_BUFFER = NodePath("timers/buffer")
+T_COYOTE = NodePath("timers/coyote")
 
 [node name="vis" type="Skeleton2D" parent="."]
 modification_stack = SubResource("SkeletonModificationStack2D_kbwhi")
 
 [node name="waist" type="Bone2D" parent="vis"]
-position = Vector2(0, -22)
+position = Vector2(-0.5, -22)
 rest = Transform2D(1, 0, 0, 1, 0, -22)
 auto_calculate_length_and_angle = false
 length = 17.0
@@ -182,9 +206,10 @@ bone_angle = 180.0
 editor_settings/show_bone_gizmo = false
 script = ExtResource("2_oe7w4")
 ENABLED = true
-TARGET = NodePath("../../../../pointer")
+TARGET = NodePath("../../../../ik_pointers/arm_pointer")
 MAXIMUM_LENGTH = 2.5
 metadata/_edit_group_ = true
+metadata/_local_pose_override_enabled_ = true
 
 [node name="vis" type="Polygon2D" parent="vis/waist/torso/arm_l"]
 position = Vector2(13, 56)
@@ -204,9 +229,10 @@ bone_angle = 0.0
 editor_settings/show_bone_gizmo = false
 script = ExtResource("2_oe7w4")
 ENABLED = true
-TARGET = NodePath("../../../../pointer")
+TARGET = NodePath("../../../../ik_pointers/arm_pointer")
 MAXIMUM_LENGTH = 2.5
 metadata/_edit_group_ = true
+metadata/_local_pose_override_enabled_ = true
 
 [node name="vis" type="Polygon2D" parent="vis/waist/torso/arm_r"]
 position = Vector2(-13, 56)
@@ -220,12 +246,14 @@ position = Vector2(46, 0)
 
 [node name="leg_l" type="Bone2D" parent="vis/waist"]
 position = Vector2(-7, 2)
+scale = Vector2(0.999995, 0.999995)
 rest = Transform2D(1, 0, 0, 1, -7, 2)
 auto_calculate_length_and_angle = false
 length = 20.0
 bone_angle = 90.0
 editor_settings/show_bone_gizmo = false
 metadata/_edit_group_ = true
+metadata/_local_pose_override_enabled_ = true
 
 [node name="poly" type="Polygon2D" parent="vis/waist/leg_l"]
 position = Vector2(0, 59)
@@ -239,7 +267,7 @@ color = Color(0, 0.176471, 0.309804, 1)
 polygon = PackedVector2Array(-6.95597, -60.8908, 6.04892, -59.6982, 1.60123, -38.4454, -1.57841, -38.4454)
 
 [node name="foot_l" type="RayCast2D" parent="vis/waist/leg_l"]
-position = Vector2(0, 20)
+position = Vector2(0, 18)
 
 [node name="leg_r" type="Bone2D" parent="vis/waist"]
 position = Vector2(8, 2)
@@ -249,6 +277,7 @@ length = 20.0
 bone_angle = 90.0
 editor_settings/show_bone_gizmo = false
 metadata/_edit_group_ = true
+metadata/_local_pose_override_enabled_ = true
 
 [node name="poly" type="Polygon2D" parent="vis/waist/leg_r"]
 position = Vector2(0, 59)
@@ -262,11 +291,35 @@ color = Color(0, 0.176471, 0.309804, 1)
 polygon = PackedVector2Array(-6.81003, -59.6506, 5.95798, -60.8082, 1.60844, -38.3589, -1.47833, -38.394)
 
 [node name="foot_r" type="RayCast2D" parent="vis/waist/leg_r"]
-position = Vector2(0, 20)
+position = Vector2(0, 18)
 
 [node name="col" type="CollisionShape2D" parent="."]
 position = Vector2(0, -41)
 shape = SubResource("CapsuleShape2D_bnnl4")
 
-[node name="pointer" type="Marker2D" parent="."]
+[node name="ik_pointers" type="Node2D" parent="."]
+position = Vector2(-0.5, 0)
+
+[node name="arm_pointer" type="Marker2D" parent="ik_pointers"]
+position = Vector2(0.5, 0)
 script = ExtResource("3_32mvs")
+
+[node name="l_foot_pointer" type="Marker2D" parent="ik_pointers"]
+position = Vector2(-7, 0)
+
+[node name="r_foot_pointer" type="Marker2D" parent="ik_pointers"]
+position = Vector2(8, 0)
+
+[node name="timers" type="Node" parent="."]
+
+[node name="coyote" type="Timer" parent="timers"]
+editor_description = "Lets the player jump for a short period of time when moving off a ledge / falling"
+wait_time = 0.2
+one_shot = true
+
+[node name="buffer" type="Timer" parent="timers"]
+editor_description = "Time before an input buffer is discarded."
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="timers/buffer" to="." method="_buffer_timeout"]
