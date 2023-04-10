@@ -1,14 +1,15 @@
-Bone2D
 Timer
+Camera2D
+Polygon2D
+Node2D
+Bone2D
 Node
 Marker2D
-Node2D
 CollisionPolygon2D
 StaticBody2D
 RayCast2D
 Skeleton2D
 Line2D
-Polygon2D
 CollisionShape2D
 RigidBody2D
 Control
@@ -25,7 +26,6 @@ SubViewport
 ColorPicker
 RichTextLabel
 AudioStreamPlayer
-Camera2D
 OptionButton
 ColorRect
 HSeparator

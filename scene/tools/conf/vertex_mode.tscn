@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://d1udl16al55us"]
 
-[ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_ij5wm"]
-[ext_resource type="PackedScene" uid="uid://depvnynlv1ise" path="res://scene/property/switch_property.tscn" id="2_v0rlg"]
-[ext_resource type="PackedScene" uid="uid://bbbaa06aawvwb" path="res://scene/property/drop_property.tscn" id="3_nl0jy"]
-[ext_resource type="PackedScene" uid="uid://ds4hmfyrfdm2l" path="res://scene/property/swatch_property.tscn" id="4_603iw"]
+[ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_pucmh"]
+[ext_resource type="PackedScene" uid="uid://bbbaa06aawvwb" path="res://scene/property/drop_property.tscn" id="2_b1y5t"]
+[ext_resource type="PackedScene" uid="uid://depvnynlv1ise" path="res://scene/property/switch_property.tscn" id="3_6sx2f"]
+[ext_resource type="PackedScene" uid="uid://ds4hmfyrfdm2l" path="res://scene/property/swatch_property.tscn" id="4_wsmh2"]
 
 [node name="vertex_mode" type="Control"]
 layout_mode = 3
@@ -33,7 +33,7 @@ theme_override_constants/separation = 4
 [node name="tool_name" type="RichTextLabel" parent="center/sort"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
-theme = ExtResource("1_ij5wm")
+theme = ExtResource("1_pucmh")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "Vertex Mode"
@@ -49,7 +49,7 @@ size_flags_horizontal = 4
 [node name="category_tech" type="RichTextLabel" parent="center/sort"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
-theme = ExtResource("1_ij5wm")
+theme = ExtResource("1_pucmh")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "Technical"
@@ -62,7 +62,7 @@ custom_minimum_size = Vector2(236, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="mode" parent="center/sort" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE") instance=ExtResource("3_nl0jy")]
+[node name="mode" parent="center/sort" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE") instance=ExtResource("2_b1y5t")]
 custom_minimum_size = Vector2(244, 24)
 layout_mode = 2
 NAME_NODE = NodePath("property_name")
@@ -80,7 +80,7 @@ popup/item_0/text = "build"
 popup/item_1/text = "cut"
 popup/item_2/text = "intersect"
 
-[node name="physics" parent="center/sort" instance=ExtResource("2_v0rlg")]
+[node name="physics" parent="center/sort" instance=ExtResource("3_6sx2f")]
 layout_mode = 2
 NAME = "Physics"
 TARGET = "vertex/physics"
@@ -89,7 +89,7 @@ DESCRIPTION = "Applies physics to newly plotted geometry."
 [node name="category_tech2" type="RichTextLabel" parent="center/sort"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
-theme = ExtResource("1_ij5wm")
+theme = ExtResource("1_pucmh")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "Visual"
@@ -102,19 +102,19 @@ custom_minimum_size = Vector2(236, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="h_origin" parent="center/sort" instance=ExtResource("2_v0rlg")]
+[node name="h_origin" parent="center/sort" instance=ExtResource("3_6sx2f")]
 layout_mode = 2
 NAME = "Highlight Origin"
 TARGET = "vertex/h_origin"
 DESCRIPTION = "Highlights the origin (first) vertex plotted. All geometry constructed forms around the origin point."
 
-[node name="use_color" parent="center/sort" instance=ExtResource("2_v0rlg")]
+[node name="use_color" parent="center/sort" instance=ExtResource("3_6sx2f")]
 layout_mode = 2
 NAME = "Use Custom Color"
 TARGET = "vertex/use_color"
 DESCRIPTION = "Toggles the use of a custom color instead of the default colors."
 
-[node name="color" parent="center/sort" instance=ExtResource("4_603iw")]
+[node name="color" parent="center/sort" instance=ExtResource("4_wsmh2")]
 layout_mode = 2
 NAME = "Custom Color"
 TARGET = "vertex/color"

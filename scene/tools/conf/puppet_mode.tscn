@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc6hi81bg8fr2"]
+
+[ext_resource type="Theme" uid="uid://oa8g4n8ubs05" path="res://gfx/ui/theme.tres" id="1_avk5q"]
+
+[node name="puppet_mode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="header" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 46.0
+color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[node name="center" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 260.0
+offset_bottom = 482.0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="sort" type="VBoxContainer" parent="center"]
+custom_minimum_size = Vector2(242, 478)
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="tool_name" type="RichTextLabel" parent="center/sort"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme = ExtResource("1_avk5q")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Puppet Mode"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

@@ -12,6 +12,8 @@ var sound_effects = [
 	preload("res://snd/joint.wav"),
 	preload("res://snd/plot.wav"),
 	preload("res://snd/stamp.wav"),
+	preload("res://snd/puppet_spawn.wav"),
+	preload("res://snd/puppet_remove.wav"),
 	preload("res://snd/mus_editor.wav")
 ]
 
@@ -23,6 +25,8 @@ enum {
 	Joint,
 	Plot,
 	Stamp,
+	PuppetSpawn,
+	PuppetRemove,
 	EditorMus
 }
 

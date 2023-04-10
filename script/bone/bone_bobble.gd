@@ -23,7 +23,7 @@ func interpolate_position() -> void:
 	# Set strength
 	strength = get_input_vector()
 	position = lerp(
-		position, start_pos + (MAXIMUM_DISTANCE * strength), 0.05
+		position, start_pos + (MAXIMUM_DISTANCE * strength), 0.2
 	)
 
 func get_input_vector() -> Vector2:

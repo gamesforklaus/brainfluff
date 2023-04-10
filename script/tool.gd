@@ -9,14 +9,41 @@ class_name ToolManager
 @export var WORLD_NODE     : Node2D
 @export var GEOMETRY_NODE  : Node
 @export var CONNECTOR_NODE : Node
+@export var ENTITY_NODE    : Node
 @export var UI_NODE        : CanvasLayer
+@export var CAM_NODE       : EditorCamera
 
 # Tool, preferences, and accompanying UI set
 var toolset = [
-	[
+	[   # 0 - Vertex Tool
 		preload("res://scene/tools/vertex_tool.tscn"),
-		preload("res://scene/vertex_mode.tscn"),
+		preload("res://scene/tools/conf/vertex_mode.tscn"),
 		preload("res://scene/tools/ins/vertex_mode_instructions.tscn")
+	],
+	[   # 1 - Scribble Tool
+		preload("res://scene/tools/vertex_tool.tscn"),
+		preload("res://scene/tools/conf/vertex_mode.tscn"),
+		preload("res://scene/tools/ins/vertex_mode_instructions.tscn")
+	],
+	[   # 2 - Polygon Tool
+		preload("res://scene/tools/vertex_tool.tscn"),
+		preload("res://scene/tools/conf/vertex_mode.tscn"),
+		preload("res://scene/tools/ins/vertex_mode_instructions.tscn")
+	],
+	[   # 3 - Remove Tool
+		preload("res://scene/tools/vertex_tool.tscn"),
+		preload("res://scene/tools/conf/vertex_mode.tscn"),
+		preload("res://scene/tools/ins/vertex_mode_instructions.tscn")
+	],
+	[   # 4 - Stamper Tool
+		preload("res://scene/tools/vertex_tool.tscn"),
+		preload("res://scene/tools/conf/vertex_mode.tscn"),
+		preload("res://scene/tools/ins/vertex_mode_instructions.tscn")
+	],
+	[   # 5 - Puppet Tool
+		preload("res://scene/tools/puppet_tool.tscn"),
+		preload("res://scene/tools/conf/puppet_mode.tscn"),
+		preload("res://scene/tools/ins/puppet_mode_instructions.tscn")
 	],
 ]
 

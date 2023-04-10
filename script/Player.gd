@@ -24,6 +24,8 @@ class_name Puppet
 @export var GROUND_SPEED  : float     = 17500.0
 @export var AIR_SPEED     : float     = 8000.0
 @export var JUMP_FORCE    : float     = 2500.0
+@export_subgroup("Cameras")
+@export var PLAYER_CAM    : Camera2D
 @export_subgroup("Raycasts")
 @export var FOOT_RAYCAST_L: RayCast2D
 @export var FOOT_RAYCAST_R: RayCast2D
@@ -184,12 +186,14 @@ func animate_legs() -> void:
 		# Set leg marker positions
 		FOOT_L.position.x = lerp(
 			FOOT_L.position.x,
-			l_default_pos[0].x + sin(Time.get_ticks_msec() / 80) * LEG_RADIUS,
+			(l_default_pos[0].x + sin(Time.get_ticks_msec() 
+			/ 80.0) * movement_vec.x * LEG_RADIUS),
 			0.1
 		)
 		FOOT_R.position.x = lerp(
 			FOOT_R.position.x,
-			l_default_pos[1].x + -sin(Time.get_ticks_msec() / 80) * LEG_RADIUS,
+			(l_default_pos[1].x + -sin(Time.get_ticks_msec() 
+			/ 80.0) * movement_vec.x * LEG_RADIUS),
 			0.1
 		)
 	else:

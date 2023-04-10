@@ -16,9 +16,6 @@ var cpolygon_data : PackedVector2Array = []
 @onready var poly = preload("res://scene/poly.tscn")
 @onready var mat = preload("res://scene/phys_material.tres")
 
-func _ready():
-	pass
-
 func _process(_delta):
 	# Update the polygon building indicator
 	if cpolygon_data.size() >= 2:

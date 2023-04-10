@@ -33,7 +33,6 @@ window/size/viewport_height=720
 window/size/resizable=false
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
-window/vsync/vsync_mode=3
 
 [importer_defaults]
 

@@ -51,6 +51,7 @@ constraint_angle_invert = true
 constraint_in_localspace = true
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_kbwhi"]
+resource_local_to_scene = true
 enabled = true
 modification_count = 4
 modifications/0 = SubResource("SkeletonModification2DJiggle_b388t")
@@ -62,13 +63,14 @@ modifications/3 = SubResource("SkeletonModification2DLookAt_7sqq5")
 radius = 19.0
 height = 84.0
 
-[node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("FOOT_RAYCAST_L", "FOOT_RAYCAST_R", "HEAD_BONE", "JAW_BONE", "ARM_L", "ARM_R", "FOOT_L", "FOOT_R", "T_BUFFER", "T_COYOTE")]
+[node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("PLAYER_CAM", "FOOT_RAYCAST_L", "FOOT_RAYCAST_R", "HEAD_BONE", "JAW_BONE", "ARM_L", "ARM_R", "FOOT_L", "FOOT_R", "T_BUFFER", "T_COYOTE")]
 mass = 4.5
 physics_material_override = SubResource("PhysicsMaterial_5310s")
 max_contacts_reported = 1
 contact_monitor = true
 lock_rotation = true
 script = ExtResource("1_lt1rw")
+PLAYER_CAM = NodePath("p_cam")
 FOOT_RAYCAST_L = NodePath("vis/waist/leg_l/foot_l")
 FOOT_RAYCAST_R = NodePath("vis/waist/leg_r/foot_r")
 HEAD_BONE = NodePath("vis/waist/torso/neck/jaw/head")
@@ -81,6 +83,7 @@ T_BUFFER = NodePath("timers/buffer")
 T_COYOTE = NodePath("timers/coyote")
 
 [node name="vis" type="Skeleton2D" parent="."]
+z_index = -1
 modification_stack = SubResource("SkeletonModificationStack2D_kbwhi")
 
 [node name="waist" type="Bone2D" parent="vis"]
@@ -201,7 +204,7 @@ position = Vector2(-3.5, 86)
 color = Color(0, 0.176471, 0.309804, 1)
 polygon = PackedVector2Array(13, -86, 13, -97, 16, -97, 16, -86)
 
-[node name="line" type="Line2D" parent="vis/waist/torso/neck"]
+[node name="line" type="Line2D" parent="vis/waist/torso/neck" node_paths=PackedStringArray("TARGET_1", "TARGET_2")]
 z_index = -1
 position = Vector2(0, 61)
 points = PackedVector2Array(0, -61, 0, -66)
@@ -210,8 +213,13 @@ default_color = Color(0, 0.176471, 0.309804, 1)
 begin_cap_mode = 1
 end_cap_mode = 1
 script = ExtResource("3_0e8ii")
+TARGET_1 = NodePath("..")
+TARGET_2 = NodePath("../jaw")
+OFFSET_1 = Vector2(0, -38)
+OFFSET_2 = Vector2(0, -61)
 
 [node name="arm_l" type="Bone2D" parent="vis/waist/torso" node_paths=PackedStringArray("TARGET")]
+z_index = 1
 position = Vector2(-13, -16)
 rotation = -1.7989
 rest = Transform2D(-0.226131, -0.974097, 0.974097, -0.226131, -13, -16)
@@ -235,6 +243,7 @@ polygon = PackedVector2Array(-14, -58, -59, -57, -59, -55, -14, -54, -13, -56)
 position = Vector2(-46, 0)
 
 [node name="arm_r" type="Bone2D" parent="vis/waist/torso" node_paths=PackedStringArray("TARGET")]
+z_index = 1
 position = Vector2(13, -16)
 rotation = 1.7989
 rest = Transform2D(-0.226131, 0.974097, -0.974097, -0.226131, 13, -16)
@@ -321,6 +330,9 @@ polygon = PackedVector2Array(-6.81003, -59.6506, 5.95798, -60.8082, 1.60844, -38
 [node name="foot_r" type="RayCast2D" parent="vis/waist/leg_r"]
 position = Vector2(0, -9.53674e-07)
 target_position = Vector2(0, 75)
+
+[node name="p_cam" type="Camera2D" parent="."]
+position_smoothing_enabled = true
 
 [node name="col" type="CollisionShape2D" parent="."]
 position = Vector2(0, -41)
