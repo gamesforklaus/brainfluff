@@ -8,8 +8,8 @@
 # to-do (v0.1)
 - [x] Vertex polygon building
 - [x] Polygon physics body assignment
-- [ ] Polygon CSG-type manipulation
-- [ ] Dotted geometry (pre-commit)
+- [X] Polygon CSG-type manipulation
+- [X] Dotted geometry (pre-commit)
 - [ ] Modifiable verticies (translation, deletion)
 - [ ] Modifiable polygons (translation, rotation, scaling)
 - [ ] RigidBody player controller
