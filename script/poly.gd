@@ -19,6 +19,7 @@ var COLOR = [
 
 @export_category("Polygon")
 @export var TEMP_POLY : Polygon2D
+@export var POLY_LINE : Line2D
 
 # Reference to rigid body
 @onready var physics_body = get_parent()
@@ -79,6 +80,9 @@ func build_collision() -> void:
 
 	# Add collision to body
 	physics_body.add_child(collision)
+	
+	# Generate outline
+	generate_outline()
 
 # Offsets vertices in a polygon by a certain amount
 func offset_polygon(center : Vector2) -> PackedVector2Array:
@@ -249,3 +253,18 @@ func disable_hatch() -> void:
 # Enables the hatch texture on the polygon
 func enable_hatch() -> void:
 	texture = load("res://gfx/ui/hatch.png")
+
+# Generates outline
+func generate_outline() -> void:
+	# Clear existing outline
+	POLY_LINE.clear_points()
+	
+	# Set color
+	POLY_LINE.default_color = color
+	
+	# Add points based on polygon
+	for point in polygon:
+		POLY_LINE.add_point(point + offset)
+	
+	# Cap off
+	POLY_LINE.add_point(POLY_LINE.points[0])

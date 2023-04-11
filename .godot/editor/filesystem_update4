@@ -1,9 +1,7 @@
 res://default_bus_layout.tres
 res://scene/root.tscn
 res://gfx/ui/theme.tres
-res://scene/property/switch_property.tscn
-res://scene/entity/player.tscn
-res://scene/tools.tscn
 res://scene/tools/puppet_tool.tscn
 res://scene/poly.tscn
+res://script/poly.gd
 res://script/vertex_mode.gd

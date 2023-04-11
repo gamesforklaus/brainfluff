@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://prlckkilor82"]
+[gd_scene load_steps=4 format=3 uid="uid://prlckkilor82"]
 
 [ext_resource type="Texture2D" uid="uid://ccxkm1ltoukjk" path="res://gfx/ui/hatch.png" id="1_dq72f"]
 [ext_resource type="Script" path="res://script/poly.gd" id="1_ww844"]
+[ext_resource type="Texture2D" uid="uid://g5ivybijete8" path="res://gfx/line/knitted.svg" id="3_nr62s"]
 
-[node name="poly" type="Polygon2D" node_paths=PackedStringArray("TEMP_POLY")]
+[node name="poly" type="Polygon2D" node_paths=PackedStringArray("TEMP_POLY", "POLY_LINE")]
 process_mode = 3
 texture_filter = 5
 texture_repeat = 2
@@ -11,9 +12,17 @@ color = Color(0.329412, 0.239216, 1, 1)
 antialiased = true
 texture = ExtResource("1_dq72f")
 script = ExtResource("1_ww844")
-TEMP_POLY = NodePath("t_p")
+TEMP_POLY = NodePath("poly_temp")
+POLY_LINE = NodePath("poly_line")
 
-[node name="t_p" type="Polygon2D" parent="."]
+[node name="poly_temp" type="Polygon2D" parent="."]
 z_index = 1
 color = Color(0.788235, 0.788235, 0.788235, 0.537255)
 antialiased = true
+
+[node name="poly_line" type="Line2D" parent="."]
+width = 6.0
+texture = ExtResource("3_nr62s")
+texture_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2

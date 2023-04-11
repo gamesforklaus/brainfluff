@@ -10,7 +10,7 @@ extends Node2D
 # Reference to tool manager
 @onready var tool_manager : Node = get_parent()
 # Current polygon
-var current_polygon : Polygon2D = null
+var current_polygon : Polygon = null
 # Current polygon body
 var current_body = null
 # Current array of points
@@ -24,6 +24,7 @@ func _process(_delta):
 func _draw():
 	if current_polygon != null:
 		draw_points()
+		current_polygon.generate_outline()
 
 # Handles mouse input
 func _unhandled_input(event):
@@ -39,8 +40,10 @@ func _unhandled_input(event):
 			match event.keycode:
 				KEY_Z:
 					commit_polygon()
+					queue_redraw()
 				KEY_X:
 					clear_polygon()
+					queue_redraw()
 
 # FUNCTION
 #-------------------------------------------------------------------------------
