@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://script/vertex_mode.gd" id="1_3f2it"]
 
 [node name="vertex_tool" type="Node2D"]
+z_index = 10
 script = ExtResource("1_3f2it")

@@ -10,7 +10,7 @@ class_name Puppet
 # this component of Brainfluff can be considered
 # feature complete, such as:
 #
-#   X Movement 
+#   X Movement
 #   * Grabbing
 #   * Gyroscope-type player rotation            (seen in Yellowhead footage)
 #   * Player-tilt affecting gravitational force (seen in Yellowhead footage)
@@ -80,7 +80,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 	var on_ground = is_on_ground(state)
 	var move_direction = get_movement_vector()
 	var delta = state.get_step()
-	
+
 	# State machine
 	match p_state:
 		pS.IDLE:
@@ -89,7 +89,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 				change_state(pS.MOVE)
 			elif on_ground and Input.is_action_just_pressed("jump"):
 				change_state(pS.JUMP)
-			
+
 			# Movement
 			velocity = lerp(
 				velocity,
@@ -104,7 +104,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 				change_state(pS.FALL)
 			elif on_ground and Input.is_action_just_pressed("jump"):
 				change_state(pS.JUMP)
-			
+
 			# Movement
 			velocity = lerp(
 				velocity,
@@ -115,7 +115,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 			# Transitions
 			if state.linear_velocity.y > 0:
 				change_state(pS.FALL)
-			
+
 			# Movement
 			velocity = lerp(
 				velocity,
@@ -132,18 +132,18 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 					change_state(pS.JUMP)
 				else:
 					change_state(pS.IDLE)
-			
+
 			# Movement
 			velocity = lerp(
 				velocity,
 				move_direction.x * AIR_SPEED * delta,
 				0.1
 			)
-	
+
 	# Run animation calls
 	animate_legs()
 	position_feet()
-	
+
 	# Apply velocity
 	state.linear_velocity.x = velocity
 
@@ -181,18 +181,18 @@ func initialize_state(target : pS) -> void:
 func animate_legs() -> void:
 	# Get movement vector
 	var movement_vec = get_movement_vector()
-	
+
 	if movement_vec.x:
 		# Set leg marker positions
 		FOOT_L.position.x = lerp(
 			FOOT_L.position.x,
-			(l_default_pos[0].x + sin(Time.get_ticks_msec() 
+			(l_default_pos[0].x + sin(Time.get_ticks_msec()
 			/ 80.0) * movement_vec.x * LEG_RADIUS),
 			0.1
 		)
 		FOOT_R.position.x = lerp(
 			FOOT_R.position.x,
-			(l_default_pos[1].x + -sin(Time.get_ticks_msec() 
+			(l_default_pos[1].x + -sin(Time.get_ticks_msec()
 			/ 80.0) * movement_vec.x * LEG_RADIUS),
 			0.1
 		)
@@ -216,7 +216,7 @@ func position_feet() -> void:
 		FOOT_RAYCAST_L.get_collision_point().y,
 		FOOT_RAYCAST_R.get_collision_point().y,
 	]
-	
+
 	# Move foot IKs
 	FOOT_L.global_position.y = colliders[0]
 	FOOT_R.global_position.y = colliders[1]
@@ -224,9 +224,9 @@ func position_feet() -> void:
 # Returns a movement vector
 func get_movement_vector() -> Vector2:
 	return Input.get_vector(
-		"move_left", 
-		"move_right", 
-		"look_down", 
+		"move_left",
+		"move_right",
+		"look_down",
 		"look_up"
 	)
 

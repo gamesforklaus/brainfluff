@@ -24,7 +24,7 @@ func _unhandled_input(event) -> void:
 			match event.keycode:
 				KEY_X:
 					despawn_puppet()
-	
+
 # FUNCTION
 #-------------------------------------------------------------------------------
 
@@ -34,41 +34,41 @@ func spawn_puppet() -> void:
 	# doesnt already exist
 	if current_puppet != null:
 		return
-	
+
 	current_puppet = puppet.instantiate()
 	tool_manager.ENTITY_NODE.add_child(current_puppet)
 	current_puppet.global_position = get_global_mouse_position()
-	
+
 	# Assign puppet camera as default
 	current_puppet.PLAYER_CAM.enabled = true
 	tool_manager.CAM_NODE.enabled = false
-	
+
 	# Disable visibility
 	toggle_overlay_visibility()
-	
+
 	# Play sound
 	SoundBus.create_2d_sound(
 		SoundBus.PuppetSpawn,
 		current_puppet.global_position,
 		randf_range(0.9, 1.2)
 	)
-	
+
 # Handles despawning of puppet
 func despawn_puppet() -> void:
 	# If a puppet doesnt exist, abort
 	if current_puppet == null:
 		return
-	
+
 	# Re-enable editor cam
 	tool_manager.CAM_NODE.global_position = current_puppet.global_position
 	tool_manager.CAM_NODE.enabled = true
-	
+
 	# Bye bye, puppet
 	current_puppet.queue_free()
-	
+
 	# Re-enable visibility
 	toggle_overlay_visibility()
-	
+
 	# Play sound
 	SoundBus.create_global_sound(
 		SoundBus.PuppetRemove,

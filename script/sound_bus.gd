@@ -41,15 +41,15 @@ func create_global_sound(
 	# Establish variables
 	var sound = AudioStreamPlayer.new()
 	var stream = sound_effects[id]
-	
+
 	# Configure audio
 	sound.stream      = stream
 	sound.pitch_scale = pitch
-	
+
 	# Add to scene tree
 	get_tree().current_scene.add_child(sound)
 	sound.play()
-	
+
 	# Cleanup
 	await sound.finished
 	sound.queue_free()
@@ -63,16 +63,16 @@ func create_2d_sound(
 	# Establish variables
 	var sound = AudioStreamPlayer2D.new()
 	var stream = sound_effects[id]
-	
+
 	# Configure audio
 	sound.stream          = stream
 	sound.pitch_scale     = pitch
 	sound.global_position = position
-	
+
 	# Add to scene tree
 	get_tree().current_scene.add_child(sound)
 	sound.play()
-	
+
 	# Cleanup
 	await sound.finished
 	sound.queue_free()

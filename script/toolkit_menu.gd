@@ -15,4 +15,4 @@ func item_clicked(index):
 	# Delete existing tool, then add new tool
 	tool_manager.delete_tool()
 	tool_manager.spawn_tool(index)
-	
+

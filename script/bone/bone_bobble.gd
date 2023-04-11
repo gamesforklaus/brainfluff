@@ -28,8 +28,8 @@ func interpolate_position() -> void:
 
 func get_input_vector() -> Vector2:
 	return Input.get_vector(
-		"move_left", 
-		"move_right", 
-		"look_down", 
+		"move_left",
+		"move_right",
+		"look_down",
 		"look_up"
 	)

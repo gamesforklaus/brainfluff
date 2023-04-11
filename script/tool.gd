@@ -63,12 +63,12 @@ func spawn_tool(id : int) -> void:
 	var tool = toolset[id][0].instantiate()
 	var conf = toolset[id][1].instantiate()
 	var hint = toolset[id][2].instantiate()
-	
+
 	# Set references
 	current_tool = tool
 	current_config = conf
 	current_UI_set = hint
-	
+
 	# Spawn in world
 	Main.tool_options_window.add_child(conf)
 	add_child(tool)

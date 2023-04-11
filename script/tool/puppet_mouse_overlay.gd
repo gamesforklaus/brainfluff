@@ -20,14 +20,14 @@ func _process(_delta) -> void:
 func animate_overlay(delta : float) -> void:
 	# Declare variables
 	var time = Time.get_ticks_msec()
-	
+
 	# Run animation functions
-	animate_glow(time, delta)
+	animate_glow(time)
 	animate_scroll(delta)
 
 # Animates the glow effect
-func animate_glow(time : float, delta : float) -> void:
-	modulate.a = absf(sin(time / 500) / 2) 
+func animate_glow(time : float) -> void:
+	modulate.a = absf(sin(time / 500) / 2)
 
 # Animates the scrolling effect
 func animate_scroll(delta : float) -> void:

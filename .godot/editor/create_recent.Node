@@ -1,7 +1,8 @@
+Node2D
+CanvasLayer
 Timer
 Camera2D
 Polygon2D
-Node2D
 Bone2D
 Node
 Marker2D
@@ -29,4 +30,3 @@ AudioStreamPlayer
 OptionButton
 ColorRect
 HSeparator
-CheckButton
