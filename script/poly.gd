@@ -31,13 +31,31 @@ var type                  : TYPE = TYPE.STATIC
 var is_editing            : bool = true
 
 func _ready() -> void:
-	var custom_color = Config.get_config_value("vertex/use_color")
+	# Prepare polygon color
+	var custom_color = Config.get_config_value("vertex/visual/use_color")
 	if custom_color:
 		# Set custom color
-		set_color(Config.get_config_value("vertex/color"))
+		set_color(Config.get_config_value("vertex/visual/color"))
 	else:
 		# Set color
 		set_color(COLOR[type])
+	
+	# Prepare outline color
+	var outline_color = Config.get_config_value("vertex/outline/use_color")
+	if outline_color:
+		POLY_LINE.default_color = Config.get_config_value("vertex/outline/color")
+	else:
+		POLY_LINE.default_color = color
+	
+	# Prepare outline texture
+	var outline_type = Config.get_config_value("vertex/outline/line_tex")
+	match outline_type:
+		0:     POLY_LINE.visible = false
+		1:     POLY_LINE.texture = load("res://gfx/line/default.svg")
+		2:     POLY_LINE.texture = load("res://gfx/line/smooth.svg")
+		3:     POLY_LINE.texture = load("res://gfx/line/rugged.svg")
+		4:     POLY_LINE.texture = load("res://gfx/line/fuzzy.svg")
+		5:     POLY_LINE.texture = load("res://gfx/line/puffy.svg")
 
 func _process(_delta : float) -> void:
 	if is_editing:
@@ -258,9 +276,6 @@ func enable_hatch() -> void:
 func generate_outline() -> void:
 	# Clear existing outline
 	POLY_LINE.clear_points()
-	
-	# Set color
-	POLY_LINE.default_color = color
 	
 	# Add points based on polygon
 	for point in polygon:

@@ -9,8 +9,15 @@ var config = {
 		"h_origin"    : true,
 		"mode"        : 0,
 		"physics"     : true,
-		"use_color"   : false,
-		"color"       : Color.CORNFLOWER_BLUE,
+		"visual"      : {
+			"use_color"   : false,
+			"color"       : Color.CORNFLOWER_BLUE,
+		},
+		"outline"     : {
+			"line_tex"    : 1,
+			"use_color"   : false,
+			"color"       : Color.BLACK,
+		}
 	}
 }
 
@@ -48,4 +55,5 @@ func set_config_value(key : String, value) -> void:
 	match len(segments):
 		1: config[segments[0]] = value
 		2: config[segments[0]][segments[1]] = value
+		3: config[segments[0]][segments[1]][segments[2]] = value
 		_: push_error("Invalid key! - \'" + key + "\'")

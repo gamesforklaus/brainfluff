@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ccxkm1ltoukjk" path="res://gfx/ui/hatch.png" id="1_dq72f"]
 [ext_resource type="Script" path="res://script/poly.gd" id="1_ww844"]
-[ext_resource type="Texture2D" uid="uid://g5ivybijete8" path="res://gfx/line/knitted.svg" id="3_nr62s"]
+[ext_resource type="Texture2D" uid="uid://bf28qj8kbcvp0" path="res://gfx/line/puffy.svg" id="3_atawf"]
 
 [node name="poly" type="Polygon2D" node_paths=PackedStringArray("TEMP_POLY", "POLY_LINE")]
 process_mode = 3
@@ -21,8 +21,10 @@ color = Color(0.788235, 0.788235, 0.788235, 0.537255)
 antialiased = true
 
 [node name="poly_line" type="Line2D" parent="."]
-width = 6.0
-texture = ExtResource("3_nr62s")
+texture_filter = 5
+width = 12.0
+texture = ExtResource("3_atawf")
 texture_mode = 1
+joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2

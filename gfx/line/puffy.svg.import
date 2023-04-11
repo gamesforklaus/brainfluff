@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g5ivybijete8"
-path="res://.godot/imported/knitted.svg-20d34c925b291f177eb7b7419fc6a45a.ctex"
+uid="uid://bf28qj8kbcvp0"
+path="res://.godot/imported/puffy.svg-30ca035cd5af1a535445a06d0a7ba0b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/line/knitted.svg"
-dest_files=["res://.godot/imported/knitted.svg-20d34c925b291f177eb7b7419fc6a45a.ctex"]
+source_file="res://gfx/line/puffy.svg"
+dest_files=["res://.godot/imported/puffy.svg-30ca035cd5af1a535445a06d0a7ba0b0.ctex"]
 
 [params]
 

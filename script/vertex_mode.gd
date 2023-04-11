@@ -110,6 +110,11 @@ func clear_polygon() -> void:
 	# Clear points and delete polygon
 	cpolygon_data.clear()
 	current_body.queue_free()
+	
+	# Clear references
+	current_polygon = null
+	current_body = null
+	cpolygon_data = []
 
 	# Play delete sound
 	SoundBus.create_global_sound(SoundBus.Delete, randf_range(0.8,1.2))

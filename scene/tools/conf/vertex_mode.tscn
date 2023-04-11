@@ -76,9 +76,9 @@ cut - Subtracts from geometry
 intersect - Subtracts from existing geometry, and creates new geometry in open space. "
 
 [node name="toggle" parent="center/sort/mode" index="1"]
+item_count = 2
 popup/item_0/text = "build"
 popup/item_1/text = "cut"
-popup/item_2/text = "intersect"
 
 [node name="physics" parent="center/sort" instance=ExtResource("3_6sx2f")]
 layout_mode = 2
@@ -86,7 +86,7 @@ NAME = "Physics"
 TARGET = "vertex/physics"
 DESCRIPTION = "Applies physics to newly plotted geometry."
 
-[node name="category_tech2" type="RichTextLabel" parent="center/sort"]
+[node name="category_visual" type="RichTextLabel" parent="center/sort"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 theme = ExtResource("1_pucmh")
@@ -111,16 +111,68 @@ DESCRIPTION = "Highlights the origin (first) vertex plotted. All geometry constr
 [node name="use_color" parent="center/sort" instance=ExtResource("3_6sx2f")]
 layout_mode = 2
 NAME = "Use Custom Color"
-TARGET = "vertex/use_color"
+TARGET = "vertex/visual/use_color"
 DESCRIPTION = "Toggles the use of a custom color instead of the default colors."
 
 [node name="color" parent="center/sort" instance=ExtResource("4_wsmh2")]
 layout_mode = 2
 NAME = "Custom Color"
-TARGET = "vertex/color"
-DESCRIPTION = "Allows you to assign a custom color to the polygon."
+TARGET = "vertex/visual/color"
+DESCRIPTION = "Custom color that gets applied to newly created polygons."
+
+[node name="category_outline" type="RichTextLabel" parent="center/sort"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme = ExtResource("1_pucmh")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Outline"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="s4" type="HSeparator" parent="center/sort"]
+custom_minimum_size = Vector2(236, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="line_tex" parent="center/sort" node_paths=PackedStringArray("NAME_NODE", "VALUE_NODE") instance=ExtResource("2_b1y5t")]
+custom_minimum_size = Vector2(244, 24)
+layout_mode = 2
+NAME_NODE = NodePath("property_name")
+VALUE_NODE = NodePath("toggle")
+NAME = "Outline Texture"
+TARGET = "vertex/outline/line_tex"
+DESCRIPTION = "Sets the outline texture of the polygon.
+\"disabled\" disregards the outline texture entirely."
+
+[node name="toggle" parent="center/sort/line_tex" index="1"]
+item_count = 6
+popup/item_0/text = "disable"
+popup/item_1/text = "default"
+popup/item_2/text = "smooth"
+popup/item_3/text = "rugged"
+popup/item_3/id = 3
+popup/item_4/text = "fuzzy"
+popup/item_4/id = 4
+popup/item_5/text = "puffy"
+popup/item_5/id = 5
+
+[node name="use_color2" parent="center/sort" instance=ExtResource("3_6sx2f")]
+layout_mode = 2
+NAME = "Use Outline Color"
+TARGET = "vertex/outline/use_color"
+DESCRIPTION = "Toggles the use of a custom color when rendering the outline."
+
+[node name="color2" parent="center/sort" instance=ExtResource("4_wsmh2")]
+layout_mode = 2
+NAME = "Outline Color"
+TARGET = "vertex/outline/color"
+DESCRIPTION = "Custom color that is assigned to the outline of newly created polygons."
 
 [editable path="center/sort/mode"]
 [editable path="center/sort/physics"]
 [editable path="center/sort/h_origin"]
 [editable path="center/sort/use_color"]
+[editable path="center/sort/line_tex"]
+[editable path="center/sort/use_color2"]
