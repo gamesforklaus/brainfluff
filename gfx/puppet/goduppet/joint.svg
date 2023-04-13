@@ -2,11 +2,12 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="15.148178mm"
-   height="16.904072mm"
-   viewBox="0 0 15.148178 16.904072"
+   width="16.904068mm"
+   height="15.148175mm"
+   viewBox="0 0 16.904068 15.148175"
    version="1.1"
    id="svg5"
+   sodipodi:docname="joint.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -49,10 +50,13 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-150.69396,-61.545717)">
+     transform="translate(-149.81601,-62.423664)">
     <g
        id="g13501"
-       transform="matrix(0.86125523,0,0,1,191.99809,-12.654932)">
+       transform="matrix(0,0.86125523,-1,0,240.92073,103.7278)"
+       inkscape:export-filename="joint.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
       <g
          id="g15973"
          transform="matrix(1.5002975,0,0,1.7095118,-75.544227,-39.646105)">

@@ -22,20 +22,20 @@ func get_distance() -> float:
 	# Get literal distance and bone length
 	var literal = global_position.distance_to(TARGET.global_position)
 	var bone_length = get_length()
-	
+
 	# Divide distance by length of bone
 	return literal / bone_length
 
 func update_stretch() -> void:
 	# Get distance
 	var distance = get_distance()
-	
+
 	# Calculate min and max
 	if distance >= MAXIMUM_LENGTH:
 		distance = MAXIMUM_LENGTH
 	if distance <= MINIMUM_LENGTH:
 		distance = MINIMUM_LENGTH
-	
+
 	# Set scale
 	if X_STRETCH:     scale.x = lerp(scale.x, distance, 0.5)
 	if Y_STRETCH:     scale.y = lerp(scale.y, distance, 0.5)

@@ -110,7 +110,7 @@ func clear_polygon() -> void:
 	# Clear points and delete polygon
 	cpolygon_data.clear()
 	current_body.queue_free()
-	
+
 	# Clear references
 	current_polygon = null
 	current_body = null

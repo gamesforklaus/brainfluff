@@ -1,0 +1,314 @@
+[gd_scene load_steps=18 format=3 uid="uid://cdppkalu4l1n8"]
+
+[ext_resource type="Script" path="res://script/bone/bone_bobble.gd" id="1_0j7xj"]
+[ext_resource type="Texture2D" uid="uid://cm4cjqtmy6xi6" path="res://gfx/puppet/goduppet/waist.svg" id="1_f6tr7"]
+[ext_resource type="Texture2D" uid="uid://dl4v558rhgcip" path="res://gfx/puppet/goduppet/torso.svg" id="2_0p84q"]
+[ext_resource type="Texture2D" uid="uid://bww77r2uynrt2" path="res://gfx/puppet/goduppet/jaw.svg" id="2_ytv7p"]
+[ext_resource type="Texture2D" uid="uid://wunruy17ee6" path="res://gfx/puppet/goduppet/head.svg" id="3_0apxl"]
+[ext_resource type="Texture2D" uid="uid://cjcjnt8bwpdst" path="res://gfx/puppet/goduppet/face.svg" id="4_ef1uw"]
+[ext_resource type="Script" path="res://script/bone/line_stretch.gd" id="5_v5v73"]
+[ext_resource type="Script" path="res://script/bone/bone_stretch.gd" id="6_c36ba"]
+[ext_resource type="Texture2D" uid="uid://cqq2vxw0lrlm5" path="res://gfx/line/smooth.svg" id="7_dyqgu"]
+[ext_resource type="Texture2D" uid="uid://dmcvrqmv0pjb8" path="res://gfx/puppet/goduppet/leg.svg" id="10_hf5lh"]
+[ext_resource type="Texture2D" uid="uid://d08nhdfasy3hg" path="res://gfx/puppet/goduppet/joint.svg" id="10_tbp73"]
+
+[sub_resource type="SkeletonModification2DJiggle" id="SkeletonModification2DJiggle_wvjrn"]
+target_nodepath = NodePath("../ik_pointers/arm_pointer")
+jiggle_data_chain_length = 1
+stiffness = 10.0
+mass = 0.25
+damping = 0.95
+joint_data/0/bone_index = 7
+joint_data/0/bone2d_node = NodePath("waist/torso/arm_r")
+joint_data/0/override_defaults = false
+
+[sub_resource type="SkeletonModification2DJiggle" id="SkeletonModification2DJiggle_fy5x5"]
+target_nodepath = NodePath("../ik_pointers/arm_pointer")
+jiggle_data_chain_length = 1
+stiffness = 11.0
+mass = 0.25
+damping = 0.95
+joint_data/0/bone_index = 6
+joint_data/0/bone2d_node = NodePath("waist/torso/arm_l")
+joint_data/0/override_defaults = false
+
+[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_c7k7w"]
+bone_index = 8
+bone2d_node = NodePath("waist/leg_l")
+target_nodepath = NodePath("../ik_pointers/l_foot_pointer")
+enable_constraint = true
+constraint_angle_min = 45.0
+constraint_angle_max = 315.0
+constraint_angle_invert = true
+constraint_in_localspace = true
+
+[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_q0g7c"]
+bone_index = 9
+bone2d_node = NodePath("waist/leg_r")
+target_nodepath = NodePath("../ik_pointers/r_foot_pointer")
+enable_constraint = true
+constraint_angle_min = 45.0
+constraint_angle_max = 315.0
+constraint_angle_invert = true
+constraint_in_localspace = true
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_xgu03"]
+resource_local_to_scene = true
+enabled = true
+modification_count = 4
+modifications/0 = SubResource("SkeletonModification2DJiggle_wvjrn")
+modifications/1 = SubResource("SkeletonModification2DJiggle_fy5x5")
+modifications/2 = SubResource("SkeletonModification2DLookAt_c7k7w")
+modifications/3 = SubResource("SkeletonModification2DLookAt_q0g7c")
+
+[sub_resource type="Curve" id="Curve_w7dqu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.742331, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.854545), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="sk_vector" type="Node2D"]
+
+[node name="s_bottom" type="Skeleton2D" parent="."]
+z_index = -1
+modification_stack = SubResource("SkeletonModificationStack2D_xgu03")
+
+[node name="waist" type="Bone2D" parent="s_bottom"]
+position = Vector2(0, -28)
+rest = Transform2D(1, 0, 0, 1, -0.5, -22)
+auto_calculate_length_and_angle = false
+length = 17.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
+
+[node name="vis" type="Sprite2D" parent="s_bottom/waist"]
+z_index = 1
+texture_filter = 5
+position = Vector2(0, -4)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_f6tr7")
+
+[node name="torso" type="Bone2D" parent="s_bottom/waist"]
+position = Vector2(0, -12)
+rest = Transform2D(1, 0, 0, 1, 0, -18)
+auto_calculate_length_and_angle = false
+length = 23.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
+metadata/_edit_group_ = true
+
+[node name="vis" type="Sprite2D" parent="s_bottom/waist/torso"]
+z_index = 1
+texture_filter = 5
+texture_repeat = 1
+position = Vector2(0.000682831, -10)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_0p84q")
+
+[node name="neck" type="Bone2D" parent="s_bottom/waist/torso"]
+position = Vector2(0, -17)
+rest = Transform2D(1, 0, 0, 1, 0, -23)
+auto_calculate_length_and_angle = false
+length = 5.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
+
+[node name="jaw" type="Bone2D" parent="s_bottom/waist/torso/neck"]
+position = Vector2(0, -5)
+rest = Transform2D(1, 0, 0, 1, 0, -5)
+auto_calculate_length_and_angle = false
+length = 15.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
+script = ExtResource("1_0j7xj")
+MAXIMUM_DISTANCE = Vector2(16, -12)
+metadata/_edit_group_ = true
+
+[node name="vis" type="Sprite2D" parent="s_bottom/waist/torso/neck/jaw"]
+z_index = 1
+texture_filter = 5
+texture_repeat = 1
+position = Vector2(0.000682831, -14)
+scale = Vector2(0.131825, 0.131825)
+texture = ExtResource("2_ytv7p")
+
+[node name="head" type="Bone2D" parent="s_bottom/waist/torso/neck/jaw"]
+position = Vector2(0, -23)
+rotation = -8.52315e-05
+rest = Transform2D(1, -8.52315e-05, 8.52315e-05, 1, 0, -17)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
+script = ExtResource("1_0j7xj")
+MAXIMUM_DISTANCE = Vector2(-2, 2)
+
+[node name="vis" type="Sprite2D" parent="s_bottom/waist/torso/neck/jaw/head"]
+texture_filter = 5
+texture_repeat = 1
+position = Vector2(0.000853539, -16)
+scale = Vector2(0.131825, 0.131825)
+texture = ExtResource("3_0apxl")
+
+[node name="eyes" type="Bone2D" parent="s_bottom/waist/torso/neck/jaw/head"]
+position = Vector2(-0.000170469, -4)
+rest = Transform2D(1, 0, 0, 1, 0, -6)
+auto_calculate_length_and_angle = false
+length = 4.0
+bone_angle = 270.0
+editor_settings/show_bone_gizmo = false
+script = ExtResource("1_0j7xj")
+MAXIMUM_DISTANCE = Vector2(20, -6)
+
+[node name="vis" type="Sprite2D" parent="s_bottom/waist/torso/neck/jaw/head/eyes"]
+texture_filter = 5
+texture_repeat = 1
+position = Vector2(0.000512123, -6)
+scale = Vector2(0.131825, 0.131825)
+texture = ExtResource("4_ef1uw")
+
+[node name="line" type="Line2D" parent="s_bottom/waist/torso/neck" node_paths=PackedStringArray("TARGET_1", "TARGET_2")]
+z_index = -1
+texture_filter = 5
+position = Vector2(0, 61)
+points = PackedVector2Array(0, -61, 0, -66)
+width = 4.0
+default_color = Color(0, 0, 0, 1)
+texture = ExtResource("7_dyqgu")
+texture_mode = 1
+begin_cap_mode = 1
+end_cap_mode = 1
+script = ExtResource("5_v5v73")
+TARGET_1 = NodePath("..")
+TARGET_2 = NodePath("../jaw")
+OFFSET_1 = Vector2(0, -38)
+OFFSET_2 = Vector2(0, -61)
+
+[node name="arm_l" type="Bone2D" parent="s_bottom/waist/torso" node_paths=PackedStringArray("TARGET")]
+z_index = 1
+position = Vector2(-13, -15)
+rest = Transform2D(-0.226131, -0.974097, 0.974097, -0.226131, -13, -16)
+auto_calculate_length_and_angle = false
+length = 35.0
+bone_angle = 180.0
+editor_settings/show_bone_gizmo = false
+script = ExtResource("6_c36ba")
+ENABLED = true
+TARGET = NodePath("../../../../ik_pointers/arm_pointer")
+MAXIMUM_LENGTH = 2.5
+metadata/_edit_group_ = true
+
+[node name="hand_l" type="Marker2D" parent="s_bottom/waist/torso/arm_l"]
+position = Vector2(-35, 0)
+
+[node name="line" type="Line2D" parent="s_bottom/waist/torso/arm_l" node_paths=PackedStringArray("TARGET_1", "TARGET_2")]
+texture_filter = 5
+position = Vector2(0, 61)
+points = PackedVector2Array(0, -61, -34.5, -61)
+width = 4.0
+width_curve = SubResource("Curve_w7dqu")
+default_color = Color(0, 0, 0, 1)
+texture = ExtResource("7_dyqgu")
+texture_mode = 1
+end_cap_mode = 2
+script = ExtResource("5_v5v73")
+TARGET_1 = NodePath("..")
+TARGET_2 = NodePath("../hand_l")
+OFFSET_1 = Vector2(0, -38)
+OFFSET_2 = Vector2(0, -61)
+
+[node name="arm_r" type="Bone2D" parent="s_bottom/waist/torso" node_paths=PackedStringArray("TARGET")]
+z_index = 1
+position = Vector2(13, -15)
+rest = Transform2D(-0.226131, 0.974097, -0.974097, -0.226131, 13, -16)
+auto_calculate_length_and_angle = false
+length = 35.0
+bone_angle = 0.0
+editor_settings/show_bone_gizmo = false
+script = ExtResource("6_c36ba")
+ENABLED = true
+TARGET = NodePath("../../../../ik_pointers/arm_pointer")
+MAXIMUM_LENGTH = 2.5
+metadata/_edit_group_ = true
+
+[node name="hand_r" type="Marker2D" parent="s_bottom/waist/torso/arm_r"]
+position = Vector2(35, 0)
+
+[node name="line" type="Line2D" parent="s_bottom/waist/torso/arm_r" node_paths=PackedStringArray("TARGET_1", "TARGET_2")]
+texture_filter = 5
+position = Vector2(0, 61)
+points = PackedVector2Array(0, -61, 34.5, -61)
+width = 4.0
+width_curve = SubResource("Curve_w7dqu")
+default_color = Color(0, 0, 0, 1)
+texture = ExtResource("7_dyqgu")
+texture_mode = 1
+end_cap_mode = 2
+script = ExtResource("5_v5v73")
+TARGET_1 = NodePath("..")
+TARGET_2 = NodePath("../hand_r")
+OFFSET_1 = Vector2(0, -38)
+OFFSET_2 = Vector2(0, -61)
+
+[node name="leg_l" type="Bone2D" parent="s_bottom/waist" node_paths=PackedStringArray("TARGET")]
+position = Vector2(-8, 2)
+scale = Vector2(0.999995, 0.999995)
+rest = Transform2D(0.894513, -0.447031, 0.447031, 0.894513, -7, 2)
+auto_calculate_length_and_angle = false
+length = 26.0
+bone_angle = 90.0
+editor_settings/show_bone_gizmo = false
+script = ExtResource("6_c36ba")
+ENABLED = true
+X_STRETCH = false
+Y_STRETCH = true
+TARGET = NodePath("../../../ik_pointers/l_foot_pointer")
+MAXIMUM_LENGTH = 1.5
+metadata/_edit_group_ = true
+
+[node name="foot_l" type="RayCast2D" parent="s_bottom/waist/leg_l"]
+position = Vector2(0, -9.25064e-05)
+target_position = Vector2(0, 75)
+
+[node name="vis" type="Sprite2D" parent="s_bottom/waist/leg_l"]
+texture_filter = 5
+position = Vector2(0, 12.7251)
+scale = Vector2(0.1, 0.102045)
+texture = ExtResource("10_hf5lh")
+
+[node name="leg_r" type="Bone2D" parent="s_bottom/waist" node_paths=PackedStringArray("TARGET")]
+position = Vector2(8, 2)
+rest = Transform2D(1, 0, 0, 1, 8, 2)
+auto_calculate_length_and_angle = false
+length = 26.0
+bone_angle = 90.0
+editor_settings/show_bone_gizmo = false
+script = ExtResource("6_c36ba")
+ENABLED = true
+X_STRETCH = false
+Y_STRETCH = true
+TARGET = NodePath("../../../ik_pointers/r_foot_pointer")
+MAXIMUM_LENGTH = 1.5
+metadata/_edit_group_ = true
+
+[node name="foot_r" type="RayCast2D" parent="s_bottom/waist/leg_r"]
+position = Vector2(0, -9.53674e-07)
+target_position = Vector2(0, 75)
+
+[node name="vis" type="Sprite2D" parent="s_bottom/waist/leg_r"]
+texture_filter = 5
+position = Vector2(0, 12.7251)
+scale = Vector2(0.1, 0.102045)
+texture = ExtResource("10_hf5lh")
+
+[node name="joint" type="Line2D" parent="s_bottom" node_paths=PackedStringArray("TARGET_1", "TARGET_2")]
+z_index = -1
+texture_filter = 5
+position = Vector2(-2, 61)
+points = PackedVector2Array(2, -98, 2, -105)
+width = 12.0
+texture = ExtResource("10_tbp73")
+texture_mode = 2
+script = ExtResource("5_v5v73")
+TARGET_1 = NodePath("..")
+TARGET_2 = NodePath("../jaw")
+OFFSET_1 = Vector2(0, -38)
+OFFSET_2 = Vector2(0, -61)

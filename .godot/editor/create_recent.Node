@@ -1,9 +1,12 @@
+Sprite2D
+DampedSpringJoint2D
+Skeleton2D
+Node2D
 PopupMenu
 MenuBar
 Node
 Button
 Line2D
-Node2D
 CanvasLayer
 Timer
 Camera2D
@@ -13,7 +16,6 @@ Marker2D
 CollisionPolygon2D
 StaticBody2D
 RayCast2D
-Skeleton2D
 CollisionShape2D
 RigidBody2D
 Control
@@ -24,10 +26,7 @@ CharacterBody2D
 PinJoint2D
 GrooveJoint2D
 CanvasGroup
-DampedSpringJoint2D
 ParallaxBackground
 SubViewport
 ColorPicker
 RichTextLabel
-AudioStreamPlayer
-OptionButton

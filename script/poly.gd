@@ -39,14 +39,14 @@ func _ready() -> void:
 	else:
 		# Set color
 		set_color(COLOR[type])
-	
+
 	# Prepare outline color
 	var outline_color = Config.get_config_value("vertex/outline/use_color")
 	if outline_color:
 		POLY_LINE.default_color = Config.get_config_value("vertex/outline/color")
 	else:
 		POLY_LINE.default_color = color
-	
+
 	# Prepare outline texture
 	var outline_type = Config.get_config_value("vertex/outline/line_tex")
 	match outline_type:
@@ -98,7 +98,7 @@ func build_collision() -> void:
 
 	# Add collision to body
 	physics_body.add_child(collision)
-	
+
 	# Generate outline
 	generate_outline()
 
@@ -276,10 +276,10 @@ func enable_hatch() -> void:
 func generate_outline() -> void:
 	# Clear existing outline
 	POLY_LINE.clear_points()
-	
+
 	# Add points based on polygon
 	for point in polygon:
 		POLY_LINE.add_point(point + offset)
-	
+
 	# Cap off
 	POLY_LINE.add_point(POLY_LINE.points[0])

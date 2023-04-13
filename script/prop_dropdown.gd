@@ -9,7 +9,7 @@ class_name DropdownProperty
 func _ready():
 	# Run init function
 	initialize()
-	
+
 	# Update value to match config
 	var val = Config.get_config_value(TARGET)
 	if val == null:

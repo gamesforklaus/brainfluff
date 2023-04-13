@@ -1,10 +1,1 @@
 res://default_bus_layout.tres
-res://scene/root.tscn
-res://gfx/ui/theme.tres
-res://scene/tools/puppet_tool.tscn
-res://scene/poly.tscn
-res://script/poly.gd
-res://script/vertex_mode.gd
-res://script/config.gd
-res://scene/tools/conf/vertex_mode.tscn
-res://scene/entity/player.tscn
