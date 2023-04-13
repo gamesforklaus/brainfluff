@@ -1,3 +1,7 @@
+PopupMenu
+MenuBar
+Node
+Button
 Line2D
 Node2D
 CanvasLayer
@@ -5,7 +9,6 @@ Timer
 Camera2D
 Polygon2D
 Bone2D
-Node
 Marker2D
 CollisionPolygon2D
 StaticBody2D
@@ -28,5 +31,3 @@ ColorPicker
 RichTextLabel
 AudioStreamPlayer
 OptionButton
-ColorRect
-HSeparator

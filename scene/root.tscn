@@ -37,6 +37,51 @@ script = ExtResource("3_tpmlb")
 TARGET = NodePath("../../../world/editor_cam")
 metadata/_edit_lock_ = true
 
+[node name="menu_bar" type="MenuBar" parent="ui"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 87.0
+offset_bottom = 35.0
+flat = true
+
+[node name="File" type="PopupMenu" parent="ui/menu_bar"]
+size = Vector2i(110, 100)
+item_count = 4
+item_0/text = "Load Level"
+item_0/id = 0
+item_1/text = "Save Level"
+item_1/id = 1
+item_2/text = ""
+item_2/id = 2
+item_2/separator = true
+item_3/text = "Exit"
+item_3/id = 3
+
+[node name="Edit" type="PopupMenu" parent="ui/menu_bar"]
+
+[node name="Grid" type="PopupMenu" parent="ui/menu_bar"]
+size = Vector2i(156, 147)
+hide_on_checkable_item_selection = false
+item_count = 6
+item_0/text = "None"
+item_0/checkable = 2
+item_0/checked = true
+item_0/id = 0
+item_1/text = "Small"
+item_1/checkable = 2
+item_1/id = 1
+item_2/text = "Medium"
+item_2/checkable = 2
+item_2/id = 2
+item_3/text = "Huge"
+item_3/checkable = 2
+item_3/id = 3
+item_4/text = ""
+item_4/id = 4
+item_4/separator = true
+item_5/text = "Custom"
+item_5/id = 5
+
 [node name="tool_manager" type="Node" parent="." node_paths=PackedStringArray("WORLD_NODE", "GEOMETRY_NODE", "CONNECTOR_NODE", "ENTITY_NODE", "UI_NODE", "CAM_NODE")]
 script = ExtResource("2_m2to2")
 WORLD_NODE = NodePath("../world")

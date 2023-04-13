@@ -98,7 +98,7 @@ editor_settings/show_bone_gizmo = false
 position = Vector2(0, 42)
 color = Color(0, 0.678431, 0.854902, 1)
 skeleton = NodePath("../..")
-polygon = PackedVector2Array(-13, -59, 13, -59, 15, -47, 13, -43, 0, -42, -13, -43, -15, -47)
+polygon = PackedVector2Array(-13, -59, -1.39715, -59, 13, -59, 15, -47, 13, -43, 0, -42, -13, -43, -15, -47)
 
 [node name="back" type="Polygon2D" parent="vis/waist"]
 z_index = -1
