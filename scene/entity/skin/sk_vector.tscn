@@ -127,7 +127,7 @@ MAXIMUM_DISTANCE = Vector2(16, -12)
 metadata/_edit_group_ = true
 
 [node name="vis" type="Sprite2D" parent="s_bottom/waist/torso/neck/jaw"]
-z_index = 1
+z_index = 2
 texture_filter = 5
 texture_repeat = 1
 position = Vector2(0.000682831, -14)
@@ -143,9 +143,10 @@ length = 16.0
 bone_angle = 270.0
 editor_settings/show_bone_gizmo = false
 script = ExtResource("1_0j7xj")
-MAXIMUM_DISTANCE = Vector2(-4, 2)
+MAXIMUM_DISTANCE = Vector2(0, 2)
 
 [node name="vis" type="Sprite2D" parent="s_bottom/waist/torso/neck/jaw/head"]
+z_index = 1
 texture_filter = 5
 texture_repeat = 1
 position = Vector2(0.000853539, -16)
@@ -153,7 +154,7 @@ scale = Vector2(0.131825, 0.131825)
 texture = ExtResource("3_0apxl")
 
 [node name="eyes" type="Bone2D" parent="s_bottom/waist/torso/neck/jaw/head"]
-position = Vector2(-0.000170469, -4)
+position = Vector2(-8.52376e-05, -5)
 rest = Transform2D(1, 0, 0, 1, -0.000170469, -4)
 auto_calculate_length_and_angle = false
 length = 4.0
@@ -163,6 +164,7 @@ script = ExtResource("1_0j7xj")
 MAXIMUM_DISTANCE = Vector2(12, -6)
 
 [node name="vis" type="Sprite2D" parent="s_bottom/waist/torso/neck/jaw/head/eyes"]
+z_index = 1
 texture_filter = 5
 texture_repeat = 1
 position = Vector2(0.000512123, -6)
@@ -183,7 +185,7 @@ end_cap_mode = 1
 script = ExtResource("5_v5v73")
 TARGET_1 = NodePath("..")
 TARGET_2 = NodePath("../jaw")
-OFFSET_1 = Vector2(0, -38)
+OFFSET_1 = Vector2(0, -44)
 OFFSET_2 = Vector2(0, -61)
 
 [node name="arm_l" type="Bone2D" parent="s_bottom/waist/torso" node_paths=PackedStringArray("TARGET")]

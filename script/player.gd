@@ -222,7 +222,7 @@ func ani_legs_walking() -> void:
 	)
 	l_target_pos[1] = lerp(
 		l_target_pos[1],
-		calculate_anim_position(l_default_pos[1], LEG_RADIUS, -50),
+		calculate_anim_position(l_default_pos[1], LEG_RADIUS, -100),
 		.5
 	)
 

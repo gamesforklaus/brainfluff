@@ -1,1 +1,8 @@
 res://default_bus_layout.tres
+res://scene/root.tscn
+res://gfx/ui/theme.tres
+res://scene/tools/puppet_tool.tscn
+res://scene/poly.tscn
+res://scene/tools/conf/vertex_mode.tscn
+res://scene/entity/player.tscn
+res://scene/entity/skin/sk_vector.tscn

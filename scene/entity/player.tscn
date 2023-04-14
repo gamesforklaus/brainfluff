@@ -96,20 +96,8 @@ T_COYOTE = NodePath("timers/coyote")
 [node name="s_bottom" parent="sk_vector" index="0"]
 modification_stack = SubResource("SkeletonModificationStack2D_2ve6o")
 
-[node name="arm_l" parent="sk_vector/s_bottom/waist/torso" index="2"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="arm_r" parent="sk_vector/s_bottom/waist/torso" index="3"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="leg_l" parent="sk_vector/s_bottom/waist" index="2"]
-metadata/_local_pose_override_enabled_ = true
-
 [node name="col_pos" parent="sk_vector/s_bottom/waist/leg_l/foot_l" index="0"]
 position = Vector2(1.00002, 28.0002)
-
-[node name="leg_r" parent="sk_vector/s_bottom/waist" index="3"]
-metadata/_local_pose_override_enabled_ = true
 
 [node name="col_pos" parent="sk_vector/s_bottom/waist/leg_r/foot_r" index="0"]
 position = Vector2(0, 28)
