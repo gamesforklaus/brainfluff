@@ -70,7 +70,7 @@ modifications/3 = SubResource("SkeletonModification2DJiggle_yr3pj")
 radius = 19.0
 height = 84.0
 
-[node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("PLAYER_CAM", "FOOT_RAYCAST_L", "FOOT_RAYCAST_R", "HEAD_BONE", "JAW_BONE", "ARM_L", "ARM_R", "FOOT_L", "FOOT_R", "HAND_L", "HAND_R", "T_BUFFER", "T_COYOTE")]
+[node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("PLAYER_CAM", "FOOT_RAYCAST_L", "FOOT_RAYCAST_R", "GYROSCOPE", "BODY", "FOOT_L", "FOOT_R", "HAND_L", "HAND_R", "T_BUFFER", "T_COYOTE")]
 mass = 4.5
 physics_material_override = SubResource("PhysicsMaterial_5310s")
 max_contacts_reported = 1
@@ -80,10 +80,8 @@ script = ExtResource("1_lt1rw")
 PLAYER_CAM = NodePath("p_cam")
 FOOT_RAYCAST_L = NodePath("sk_vector/s_bottom/waist/leg_l/foot_l")
 FOOT_RAYCAST_R = NodePath("sk_vector/s_bottom/waist/leg_r/foot_r")
-HEAD_BONE = NodePath("sk_vector/s_bottom/waist/torso/neck/jaw/head")
-JAW_BONE = NodePath("sk_vector/s_bottom/waist/torso/neck/jaw")
-ARM_L = NodePath("sk_vector/s_bottom/waist/torso/arm_l")
-ARM_R = NodePath("sk_vector/s_bottom/waist/torso/arm_r")
+GYROSCOPE = NodePath("gyro")
+BODY = NodePath("sk_vector")
 FOOT_L = NodePath("sk_vector/ik_pointers/l_foot_pointer")
 FOOT_R = NodePath("sk_vector/ik_pointers/r_foot_pointer")
 HAND_L = NodePath("sk_vector/ik_pointers/l_arm_pointer")
@@ -120,6 +118,9 @@ position_smoothing_enabled = true
 [node name="col" type="CollisionShape2D" parent="."]
 position = Vector2(0, -41)
 shape = SubResource("CapsuleShape2D_bnnl4")
+
+[node name="gyro" type="RayCast2D" parent="."]
+target_position = Vector2(0, 35)
 
 [node name="timers" type="Node" parent="."]
 

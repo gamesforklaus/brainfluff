@@ -1,3 +1,4 @@
+RayCast2D
 CollisionShape2D
 Marker2D
 PhysicalBone2D
@@ -17,7 +18,6 @@ Polygon2D
 Bone2D
 CollisionPolygon2D
 StaticBody2D
-RayCast2D
 RigidBody2D
 Control
 MarginContainer

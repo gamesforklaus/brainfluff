@@ -12,12 +12,12 @@ class_name Puppet
 #
 #   X Movement
 #   * Grabbing
-#   * Gyroscope-type player rotation            (seen in Yellowhead footage)
+#   X Gyroscope-type player rotation            (seen in Yellowhead footage)
 #   * Player-tilt affecting gravitational force (seen in Yellowhead footage)
 #	X Godo skeletal rig
-#   * Inverse kinematic system                  (seen in Yellowhead footage)
+#   X Inverse kinematic system                  (seen in Yellowhead footage)
 #		X Stretchy arm IK
-#		* Legs -> Ground IK
+#		X Legs -> Ground IK
 
 @export_category("Puppet")
 @export_subgroup("Attributes")
@@ -29,11 +29,9 @@ class_name Puppet
 @export_subgroup("Raycasts")
 @export var FOOT_RAYCAST_L: RayCast2D
 @export var FOOT_RAYCAST_R: RayCast2D
-@export_subgroup("Skeleton")
-@export var HEAD_BONE     : Bone2D
-@export var JAW_BONE      : Bone2D
-@export var ARM_L         : StretchBone
-@export var ARM_R         : StretchBone
+@export var GYROSCOPE     : RayCast2D
+@export_subgroup("IK Controllers")
+@export var BODY          : Node2D
 @export var FOOT_L        : Marker2D
 @export var FOOT_R        : Marker2D
 @export var HAND_L        : Marker2D
@@ -161,6 +159,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 
 	# Run global animation calls
 	position_feet()
+	calculate_gyro()
 
 	# Apply velocity
 	state.linear_velocity.x = velocity
@@ -194,6 +193,48 @@ func initialize_state(target : pS) -> void:
 			return
 		_:
 			return
+
+# Returns a movement vector
+func get_movement_vector() -> Vector2:
+	return Input.get_vector(
+		"move_left",
+		"move_right",
+		"look_down",
+		"look_up"
+	)
+
+# Returns whether or not a player is touching ground
+func is_on_ground(state : PhysicsDirectBodyState2D) -> bool:
+	return (
+		state.get_contact_count() > 0 and
+		int(state.get_contact_collider_position(0).y) >= int(global_position.y - 5)
+	)
+
+# Adjusts player rotation according to floor normal
+func calculate_gyro() -> void:
+	# Declare variables
+	var target = PI/25 * get_movement_vector().x
+	
+	# Slowly return to a target of PI/2 if
+	# no collider is found
+	if !GYROSCOPE.get_collider():
+		BODY.rotation = lerp_angle(
+			BODY.rotation,
+			target,
+			0.05
+		)
+		return
+	
+	# Set rotation according to floor normal
+	target = PI/2 + GYROSCOPE.get_collision_normal().angle()
+	BODY.rotation = lerp_angle(
+		BODY.rotation,
+		target,
+		0.1
+	)
+
+# ANIMATION
+#-------------------------------------------------------------------------------
 
 # Sets idle position for legs
 func ani_legs_idle() -> void:
@@ -236,7 +277,6 @@ func ani_legs_air() -> void:
 	# Calculate factors based on air velocity
 	# direction; moving up moves legs inward,
 	# moving down moves legs outward
-	print(air_velocity / 500.0)
 	air_velocity = clamp(air_velocity / 500.0, -1.0, 1.0)
 	factor = 4 * absf(air_velocity)
 	y_offset = 10 * abs(air_velocity)
@@ -286,19 +326,3 @@ func position_feet() -> void:
 	if FOOT_RAYCAST_R.get_collider():
 		if colliders[1].y < FOOT_R.position.y:
 			FOOT_R.position.y = colliders[1].y
-
-# Returns a movement vector
-func get_movement_vector() -> Vector2:
-	return Input.get_vector(
-		"move_left",
-		"move_right",
-		"look_down",
-		"look_up"
-	)
-
-# Returns whether or not a player is touching ground
-func is_on_ground(state : PhysicsDirectBodyState2D) -> bool:
-	return (
-		state.get_contact_count() > 0 and
-		int(state.get_contact_collider_position(0).y) >= int(global_position.y - 5)
-	)

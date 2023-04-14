@@ -6,3 +6,4 @@ res://scene/poly.tscn
 res://scene/tools/conf/vertex_mode.tscn
 res://scene/entity/player.tscn
 res://scene/entity/skin/sk_vector.tscn
+res://script/player.gd
