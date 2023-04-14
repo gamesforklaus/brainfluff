@@ -42,9 +42,13 @@ class_name Puppet
 @export var T_BUFFER      : Timer
 @export var T_COYOTE      : Timer
 
-# Leg animation variables
-const LEG_RADIUS = 19.5
+# Animation variables
+const LEG_RADIUS = 8
+const HAND_RADIUS = 5
 var l_default_pos = [Vector2.ZERO, Vector2.ZERO]
+var h_default_pos = [Vector2.ZERO, Vector2.ZERO]
+var l_target_pos  = [Vector2.ZERO, Vector2.ZERO]
+var h_target_pos  = [Vector2.ZERO, Vector2.ZERO]
 
 # Player states
 enum pS {
@@ -74,6 +78,9 @@ func _ready() -> void:
 	# Get initial positions of feet
 	l_default_pos[0] = FOOT_L.position
 	l_default_pos[1] = FOOT_R.position
+	# ...then hands
+	h_default_pos[0] = HAND_L.position
+	h_default_pos[1] = HAND_R.position
 
 func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 	# Declare variables
@@ -89,7 +96,10 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 				change_state(pS.MOVE)
 			elif on_ground and Input.is_action_just_pressed("jump"):
 				change_state(pS.JUMP)
-
+				
+			# Animate
+			ani_legs_idle()
+			
 			# Movement
 			velocity = lerp(
 				velocity,
@@ -104,7 +114,10 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 				change_state(pS.FALL)
 			elif on_ground and Input.is_action_just_pressed("jump"):
 				change_state(pS.JUMP)
-
+			
+			# Animate
+			ani_legs_walking()
+			
 			# Movement
 			velocity = lerp(
 				velocity,
@@ -115,7 +128,10 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 			# Transitions
 			if state.linear_velocity.y > 0:
 				change_state(pS.FALL)
-
+			
+			# Animate
+			ani_legs_air()
+			
 			# Movement
 			velocity = lerp(
 				velocity,
@@ -132,7 +148,10 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 					change_state(pS.JUMP)
 				else:
 					change_state(pS.IDLE)
-
+			
+			# Animate
+			ani_legs_air()
+			
 			# Movement
 			velocity = lerp(
 				velocity,
@@ -140,8 +159,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 				0.1
 			)
 
-	# Run animation calls
-	animate_legs()
+	# Run global animation calls
 	position_feet()
 
 	# Apply velocity
@@ -177,49 +195,97 @@ func initialize_state(target : pS) -> void:
 		_:
 			return
 
-# Animates legs by using sin functions
-func animate_legs() -> void:
+# Sets idle position for legs
+func ani_legs_idle() -> void:
+	# Interpolate to defaults
+	l_target_pos[0] = lerp(
+			l_target_pos[0],
+			l_default_pos[0],
+			.1
+		)
+	l_target_pos[1] = lerp(
+		l_target_pos[1],
+		l_default_pos[1],
+		.1
+	)
+
+# Sets walking positions for legs
+func ani_legs_walking() -> void:
 	# Get movement vector
 	var movement_vec = get_movement_vector()
+	
+	# Set leg marker positions
+	l_target_pos[0] = lerp(
+		l_target_pos[0],
+		calculate_anim_position(l_default_pos[0], LEG_RADIUS),
+		.5
+	)
+	l_target_pos[1] = lerp(
+		l_target_pos[1],
+		calculate_anim_position(l_default_pos[1], LEG_RADIUS, -50),
+		.5
+	)
 
-	if movement_vec.x:
-		# Set leg marker positions
-		FOOT_L.position.x = lerp(
-			FOOT_L.position.x,
-			(l_default_pos[0].x + sin(Time.get_ticks_msec()
-			/ 80.0) * movement_vec.x * LEG_RADIUS),
-			0.1
-		)
-		FOOT_R.position.x = lerp(
-			FOOT_R.position.x,
-			(l_default_pos[1].x + -sin(Time.get_ticks_msec()
-			/ 80.0) * movement_vec.x * LEG_RADIUS),
-			0.1
-		)
-	else:
-		# Set leg marker positions
-		FOOT_L.position.x = lerp(
-			FOOT_L.position.x,
-			l_default_pos[0].x,
-			0.2
-		)
-		FOOT_R.position.x = lerp(
-			FOOT_R.position.x,
-			l_default_pos[1].x,
-			0.2
-		)
+# Sets air-borne positions for legs
+func ani_legs_air() -> void:
+	# Declare variables
+	var air_velocity = linear_velocity.y
+	var factor : float
+	var y_offset : float
+	
+	# Calculate factors based on air velocity
+	# direction; moving up moves legs inward,
+	# moving down moves legs outward
+	print(air_velocity / 500.0)
+	air_velocity = clamp(air_velocity / 500.0, -1.0, 1.0)
+	factor = 4 * absf(air_velocity)
+	y_offset = 10 * abs(air_velocity)
+	
+	# Set leg marker positions
+	l_target_pos[0] = lerp(
+		l_target_pos[0],
+		l_default_pos[0] * factor + Vector2(0, y_offset),
+		.25
+	)
+	l_target_pos[1] = lerp(
+		l_target_pos[1],
+		l_default_pos[1] * factor + Vector2(0, y_offset),
+		.25
+	)
+
+# Calculates animation positions
+func calculate_anim_position(origin : Vector2, radius : float, offset : float = 0) -> Vector2:
+	# Get values
+	var time = Time.get_ticks_msec()
+	var vec  = get_movement_vector().x
+	
+	return Vector2(
+		(origin.x + sin((time + offset) / 50.0) * vec * radius),
+		(-origin.y + cos((time + offset) / 50.0) * vec * radius)
+	)
 
 # Handles feet IK points
 func position_feet() -> void:
-	# Get collision points
+	# Declare variables
 	var colliders = [
-		FOOT_RAYCAST_L.get_collision_point().y,
-		FOOT_RAYCAST_R.get_collision_point().y,
+		FOOT_RAYCAST_L.HIT_NODE.position,
+		FOOT_RAYCAST_R.HIT_NODE.position,
 	]
-
-	# Move foot IKs
-	FOOT_L.global_position.y = colliders[0]
-	FOOT_R.global_position.y = colliders[1]
+	
+	# If the colliders have collision point data,
+	# set feet IK positions to the highest point
+	# between animation position and collision
+	# position
+	
+	FOOT_L.position = l_target_pos[0]
+	if FOOT_RAYCAST_L.get_collider():
+		if colliders[0].y < FOOT_L.position.y:
+			FOOT_L.position.y = colliders[0].y
+	
+	FOOT_R.position = l_target_pos[1]
+	if FOOT_RAYCAST_R.get_collider():
+		if colliders[1].y < FOOT_R.position.y:
+			FOOT_R.position.y = colliders[1].y
 
 # Returns a movement vector
 func get_movement_vector() -> Vector2:

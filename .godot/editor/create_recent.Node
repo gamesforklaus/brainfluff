@@ -1,7 +1,10 @@
+CollisionShape2D
+Marker2D
+PhysicalBone2D
+Node2D
 Sprite2D
 DampedSpringJoint2D
 Skeleton2D
-Node2D
 PopupMenu
 MenuBar
 Node
@@ -12,11 +15,9 @@ Timer
 Camera2D
 Polygon2D
 Bone2D
-Marker2D
 CollisionPolygon2D
 StaticBody2D
 RayCast2D
-CollisionShape2D
 RigidBody2D
 Control
 MarginContainer
@@ -29,4 +30,3 @@ CanvasGroup
 ParallaxBackground
 SubViewport
 ColorPicker
-RichTextLabel
