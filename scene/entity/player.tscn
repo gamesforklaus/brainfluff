@@ -77,7 +77,7 @@ modifications/4 = SubResource("SkeletonModification2DPhysicalBones_vc4it")
 radius = 19.0
 height = 84.0
 
-[node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("PLAYER_CAM", "FOOT_RAYCAST_L", "FOOT_RAYCAST_R", "GYROSCOPE", "BODY", "FOOT_L", "FOOT_R", "HAND_L", "HAND_R", "T_BUFFER", "T_COYOTE")]
+[node name="puppet" type="RigidBody2D" node_paths=PackedStringArray("PLAYER_CAM", "FOOT_RAYCAST_L", "FOOT_RAYCAST_R", "GYROSCOPE", "BODY", "FOOT_L", "FOOT_R", "HAND_L", "HAND_R", "CURSOR", "T_BUFFER", "T_COYOTE")]
 mass = 4.5
 physics_material_override = SubResource("PhysicsMaterial_5310s")
 max_contacts_reported = 1
@@ -93,6 +93,7 @@ FOOT_L = NodePath("sk_vector/ik_pointers/l_foot_pointer")
 FOOT_R = NodePath("sk_vector/ik_pointers/r_foot_pointer")
 HAND_L = NodePath("sk_vector/ik_pointers/l_arm_pointer")
 HAND_R = NodePath("sk_vector/ik_pointers/r_arm_pointer")
+CURSOR = NodePath("sk_vector/ik_pointers/cursor")
 T_BUFFER = NodePath("timers/buffer")
 T_COYOTE = NodePath("timers/coyote")
 
@@ -100,6 +101,15 @@ T_COYOTE = NodePath("timers/coyote")
 
 [node name="skeleton" parent="sk_vector" index="0"]
 modification_stack = SubResource("SkeletonModificationStack2D_lyg35")
+
+[node name="jaw" parent="sk_vector/skeleton/waist/torso/neck" index="0" node_paths=PackedStringArray("PHYS_BODY")]
+PHYS_BODY = NodePath("../../../../../..")
+
+[node name="head" parent="sk_vector/skeleton/waist/torso/neck/jaw" index="1" node_paths=PackedStringArray("PHYS_BODY")]
+PHYS_BODY = NodePath("../../../../../../..")
+
+[node name="eyes" parent="sk_vector/skeleton/waist/torso/neck/jaw/head" index="1" node_paths=PackedStringArray("PHYS_BODY")]
+PHYS_BODY = NodePath("../../../../../../../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sk_vector/ik_pointers/l_arm_pointer" index="0"]
 shape = SubResource("CircleShape2D_bu43m")

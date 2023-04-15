@@ -7,3 +7,4 @@ res://scene/tools/puppet_tool.tscn
 res://scene/poly.tscn
 res://scene/tools/conf/vertex_mode.tscn
 res://scene/entity/player.tscn
+res://script/player.gd

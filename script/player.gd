@@ -36,6 +36,7 @@ class_name Puppet
 @export var FOOT_R        : Marker2D
 @export var HAND_L        : Marker2D
 @export var HAND_R        : Marker2D
+@export var CURSOR        : Marker2D
 @export_subgroup("Timers")
 @export var T_BUFFER      : Timer
 @export var T_COYOTE      : Timer
