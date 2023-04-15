@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bx8g6coxgxw67"]
+[gd_scene load_steps=15 format=3 uid="uid://bx8g6coxgxw67"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_lt1rw"]
 [ext_resource type="PackedScene" uid="uid://cdppkalu4l1n8" path="res://scene/entity/skin/sk_vector.tscn" id="2_vls6y"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5310s"]
-friction = 0.9
+friction = 0.6
 absorbent = true
 
 [sub_resource type="SkeletonModification2DJiggle" id="SkeletonModification2DJiggle_2hood"]
@@ -21,7 +21,7 @@ joint_data/0/override_defaults = false
 [sub_resource type="SkeletonModification2DJiggle" id="SkeletonModification2DJiggle_2s2dc"]
 target_nodepath = NodePath("../ik_pointers/l_arm_pointer")
 jiggle_data_chain_length = 1
-stiffness = 11.0
+stiffness = 10.0
 mass = 0.5
 damping = 0.95
 use_gravity = true
@@ -49,14 +49,21 @@ joint_data/0/bone_index = 9
 joint_data/0/bone2d_node = NodePath("waist/leg_r")
 joint_data/0/override_defaults = false
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_2ve6o"]
+[sub_resource type="SkeletonModification2DPhysicalBones" id="SkeletonModification2DPhysicalBones_vc4it"]
+physical_bone_chain_length = 2
+fetch_bones = null
+joint_0_nodepath = NodePath("phys_head")
+joint_1_nodepath = NodePath("phys_jaw")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_lyg35"]
 resource_local_to_scene = true
 enabled = true
-modification_count = 4
+modification_count = 5
 modifications/0 = SubResource("SkeletonModification2DJiggle_2hood")
 modifications/1 = SubResource("SkeletonModification2DJiggle_2s2dc")
 modifications/2 = SubResource("SkeletonModification2DJiggle_lsh5m")
 modifications/3 = SubResource("SkeletonModification2DJiggle_yr3pj")
+modifications/4 = SubResource("SkeletonModification2DPhysicalBones_vc4it")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bu43m"]
 
@@ -78,8 +85,8 @@ contact_monitor = true
 lock_rotation = true
 script = ExtResource("1_lt1rw")
 PLAYER_CAM = NodePath("p_cam")
-FOOT_RAYCAST_L = NodePath("sk_vector/s_bottom/waist/leg_l/foot_l")
-FOOT_RAYCAST_R = NodePath("sk_vector/s_bottom/waist/leg_r/foot_r")
+FOOT_RAYCAST_L = NodePath("sk_vector/skeleton/waist/leg_l/foot_l")
+FOOT_RAYCAST_R = NodePath("sk_vector/skeleton/waist/leg_r/foot_r")
 GYROSCOPE = NodePath("gyro")
 BODY = NodePath("sk_vector")
 FOOT_L = NodePath("sk_vector/ik_pointers/l_foot_pointer")
@@ -91,14 +98,8 @@ T_COYOTE = NodePath("timers/coyote")
 
 [node name="sk_vector" parent="." instance=ExtResource("2_vls6y")]
 
-[node name="s_bottom" parent="sk_vector" index="0"]
-modification_stack = SubResource("SkeletonModificationStack2D_2ve6o")
-
-[node name="col_pos" parent="sk_vector/s_bottom/waist/leg_l/foot_l" index="0"]
-position = Vector2(1.00002, 28.0002)
-
-[node name="col_pos" parent="sk_vector/s_bottom/waist/leg_r/foot_r" index="0"]
-position = Vector2(0, 28)
+[node name="skeleton" parent="sk_vector" index="0"]
+modification_stack = SubResource("SkeletonModificationStack2D_lyg35")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sk_vector/ik_pointers/l_arm_pointer" index="0"]
 shape = SubResource("CircleShape2D_bu43m")

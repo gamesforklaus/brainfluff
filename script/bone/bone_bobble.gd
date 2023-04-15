@@ -5,26 +5,29 @@ class_name BobbleBone
 # Overshoots and rotates towards a point
 
 @export var ENABLED          : bool      = true
+@export var DAMPENING        : float     = 0.2
+@export var TENSION          : float     = 0.3
 @export var MAXIMUM_DISTANCE : Vector2   = Vector2(8.0, -8.0)
 
 # Starting position
 @onready var start_pos : Vector2 = position
-# Strength value
+var target_pos         : Vector2 = Vector2.ZERO
 var strength           : Vector2 = Vector2.ZERO
+var speed              : Vector2 = Vector2.ZERO
 
-func _process(_delta) -> void:
+func _process(delta) -> void:
+	# Calculate current input strength
+	# and consequential displacement
+	strength = get_input_vector()
+	var displacement = ((start_pos + (MAXIMUM_DISTANCE * strength) - position)) #* delta
+	speed += (TENSION * displacement) - (DAMPENING * speed)
+	
+	# Apply to position if enabled
 	if ENABLED:
-		interpolate_position()
+		position += speed
 
 # FUNCTION
 #-------------------------------------------------------------------------------
-
-func interpolate_position() -> void:
-	# Set strength
-	strength = get_input_vector()
-	position = lerp(
-		position, start_pos + (MAXIMUM_DISTANCE * strength), 0.2
-	)
 
 func get_input_vector() -> Vector2:
 	return Input.get_vector(
