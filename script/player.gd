@@ -98,6 +98,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 				
 			# Animate
 			ani_legs_idle()
+			ani_hands_idle()
 			
 			# Movement
 			velocity = lerp(
@@ -116,6 +117,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 			
 			# Animate
 			ani_legs_walking()
+			ani_hands_walking()
 			
 			# Movement
 			velocity = lerp(
@@ -130,6 +132,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 			
 			# Animate
 			ani_legs_air()
+			ani_hands_air()
 			
 			# Movement
 			velocity = lerp(
@@ -150,6 +153,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 			
 			# Animate
 			ani_legs_air()
+			ani_hands_air()
 			
 			# Movement
 			velocity = lerp(
@@ -160,6 +164,7 @@ func _integrate_forces(state : PhysicsDirectBodyState2D) -> void:
 
 	# Run global animation calls
 	position_feet()
+	position_hands()
 	calculate_gyro()
 
 	# Apply velocity
@@ -294,6 +299,61 @@ func ani_legs_air() -> void:
 		.25
 	)
 
+# Sets idle position for hands
+func ani_hands_idle() -> void:
+	# Interpolate to defaults
+	h_target_pos[0] = lerp(
+			h_target_pos[0],
+			h_default_pos[0],
+			.1
+		)
+	h_target_pos[1] = lerp(
+		h_target_pos[1],
+		h_default_pos[1],
+		.1
+	)
+
+# Sets walking positions for hands
+func ani_hands_walking() -> void:
+	# Get movement vector
+	var movement_vec = get_movement_vector()
+	
+	# Set leg marker positions
+	h_target_pos[0] = lerp(
+		h_target_pos[0],
+		calculate_anim_position(h_default_pos[0], HAND_RADIUS),
+		.5
+	)
+	h_target_pos[1] = lerp(
+		h_target_pos[1],
+		calculate_anim_position(h_default_pos[1], HAND_RADIUS, -100),
+		.5
+	)
+
+# Sets air-borne positions for hands
+func ani_hands_air() -> void:
+	# Declare variables
+	var air_velocity = linear_velocity.y
+	var factor : float
+	
+	# Calculate factors based on air velocity
+	# direction; moving up moves hands downwards,
+	# moving down moves hands upwards and out
+	air_velocity = clamp(air_velocity / 500.0, -1.0, 1.0)
+	factor = 2 * air_velocity + 2
+	
+	# Set leg marker positions
+	h_target_pos[0] = lerp(
+		h_target_pos[0],
+		h_default_pos[0] * Vector2(1, factor),
+		.25
+	)
+	h_target_pos[1] = lerp(
+		h_target_pos[1],
+		h_default_pos[1] * Vector2(1, factor),
+		.25
+	)
+
 # Calculates animation positions
 func calculate_anim_position(origin : Vector2, radius : float, offset : float = 0) -> Vector2:
 	# Get values
@@ -302,7 +362,7 @@ func calculate_anim_position(origin : Vector2, radius : float, offset : float = 
 	
 	return Vector2(
 		(origin.x + sin((time + offset) / 50.0) * vec * radius),
-		(-origin.y + cos((time + offset) / 50.0) * vec * radius)
+		(origin.y + cos((time + offset) / 50.0) * vec * radius)
 	)
 
 # Handles feet IK points
@@ -327,3 +387,8 @@ func position_feet() -> void:
 	if FOOT_RAYCAST_R.get_collider():
 		if colliders[1].y < FOOT_R.position.y:
 			FOOT_R.position.y = colliders[1].y
+
+# Handles hand IK points
+func position_hands() -> void:
+	HAND_L.position = h_target_pos[0]
+	HAND_R.position = h_target_pos[1]

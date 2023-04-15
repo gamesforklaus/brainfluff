@@ -6,9 +6,13 @@ class_name BobbleBone
 
 @export var ENABLED          : bool      = true
 @export var PHYS_BODY        : PhysicsBody2D
+@export_category("SpringPhysics")
 @export var DAMPENING        : float     = 0.15
 @export var TENSION          : float     = 0.2
 @export var MAXIMUM_DISTANCE : Vector2   = Vector2(8.0, -8.0)
+@export_category("InterpretedPhysics")
+@export var PHYSICS_FACTOR   : float     = 2.0
+@export var PHYSICS_EXTENTS  : float     = 4.0
 
 # Starting position
 @onready var start_pos : Vector2 = position
@@ -40,11 +44,11 @@ func interpret_velocity(delta : float) -> Vector2:
 	# divide into current
 	var max_spd = PHYS_BODY.GROUND_SPEED * delta
 	var current_spd = PHYS_BODY.linear_velocity
-	var interpret = current_spd / max_spd * -2
+	var interpret = current_spd / max_spd * -PHYSICS_FACTOR
 	
 	return Vector2(
-		clampf(interpret.x, -4, 4),
-		clampf(interpret.y, -4, 4)
+		clampf(interpret.x, -PHYSICS_EXTENTS, PHYSICS_EXTENTS),
+		clampf(interpret.y, -PHYSICS_EXTENTS, PHYSICS_EXTENTS)
 	)
 
 func get_input_vector() -> Vector2:

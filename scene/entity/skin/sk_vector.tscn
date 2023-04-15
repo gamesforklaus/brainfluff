@@ -201,7 +201,6 @@ ENABLED = true
 TARGET = NodePath("../../../../ik_pointers/l_arm_pointer")
 MAXIMUM_LENGTH = 2.5
 metadata/_edit_group_ = true
-metadata/_local_pose_override_enabled_ = true
 
 [node name="hand_l" type="Marker2D" parent="skeleton/waist/torso/arm_l"]
 position = Vector2(-35, 0)
@@ -229,7 +228,6 @@ ENABLED = true
 TARGET = NodePath("../../../../ik_pointers/r_arm_pointer")
 MAXIMUM_LENGTH = 2.5
 metadata/_edit_group_ = true
-metadata/_local_pose_override_enabled_ = true
 
 [node name="hand_r" type="Marker2D" parent="skeleton/waist/torso/arm_r"]
 position = Vector2(35, 0)
@@ -260,7 +258,6 @@ Y_STRETCH = true
 TARGET = NodePath("../../../ik_pointers/l_foot_pointer")
 MAXIMUM_LENGTH = 1.5
 metadata/_edit_group_ = true
-metadata/_local_pose_override_enabled_ = true
 
 [node name="foot_l" type="RayCast2D" parent="skeleton/waist/leg_l" node_paths=PackedStringArray("HIT_NODE")]
 position = Vector2(0, -9.25064e-05)
@@ -292,7 +289,6 @@ Y_STRETCH = true
 TARGET = NodePath("../../../ik_pointers/r_foot_pointer")
 MAXIMUM_LENGTH = 1.5
 metadata/_edit_group_ = true
-metadata/_local_pose_override_enabled_ = true
 
 [node name="foot_r" type="RayCast2D" parent="skeleton/waist/leg_r" node_paths=PackedStringArray("HIT_NODE")]
 position = Vector2(0, -9.53674e-07)
@@ -320,10 +316,10 @@ texture_mode = 2
 [node name="ik_pointers" type="Node2D" parent="."]
 
 [node name="l_arm_pointer" type="Marker2D" parent="ik_pointers"]
-position = Vector2(-47.5, -55)
+position = Vector2(-42.5, -33)
 
 [node name="r_arm_pointer" type="Marker2D" parent="ik_pointers"]
-position = Vector2(48.5, -55)
+position = Vector2(43.5, -33)
 
 [node name="l_foot_pointer" type="Marker2D" parent="ik_pointers"]
 position = Vector2(-7, 0)
